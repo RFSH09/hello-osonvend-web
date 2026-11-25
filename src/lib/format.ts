@@ -23,7 +23,8 @@ export function tashkentParts(date: Date | string) {
 }
 
 /** "25.11.2026 13:25" */
-export function formatTashkentTime(date: Date | string, _locale = "uz"): string {
+export function formatTashkentTime(date: Date | string, locale = "uz"): string {
+  void locale; // same numeric format in every language
   const p = tashkentParts(date);
   return `${p.day}.${p.month}.${p.year} ${p.hour}:${p.minute}`;
 }

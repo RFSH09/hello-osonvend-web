@@ -42,9 +42,11 @@ export function SettingsView() {
   const [del, setDel] = useState(false);
   const [busy, setBusy] = useState(false);
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- sync with the theme attribute set outside React
   useEffect(() => setDark(document.documentElement.dataset.theme === "dark"), []);
 
   function setTheme(d: boolean) {
+    // eslint-disable-next-line react-hooks/immutability -- the theme lives on <html>, outside React
     document.documentElement.dataset.theme = d ? "dark" : "light";
     try {
       localStorage.setItem("theme", d ? "dark" : "light");
@@ -112,7 +114,7 @@ export function SettingsView() {
                 <li key={d.id} className="flex items-center gap-3 py-3">
                   {d.name.includes("Windows") ? <Monitor size={22} aria-hidden /> : <Smartphone size={22} aria-hidden />}
                   <div className="min-w-0 flex-1">
-                    <div className="font-semibold">{d.name} {d.current && <Badge tone="success" className="ml-1 px-2 py-0.5 text-xs">{t("thisDevice")}</Badge>}</div>
+                    <div className="font-semibold">{d.name} {d.current && <Badge tone="success" className="ml-1 px-2 py-0.5 text-sm">{t("thisDevice")}</Badge>}</div>
                     <div className="text-sm text-muted">{t("lastActive")}: {formatTashkentTime(d.lastActive, locale)}</div>
                   </div>
                   {!d.current && <Button variant="outline" onClick={() => api.signOutDevice(d.id)}>{t("signOut")}</Button>}

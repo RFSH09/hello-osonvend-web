@@ -94,7 +94,7 @@ export function AccountShell({ children }: { children: ReactNode }) {
             href={href}
             aria-current={isActive(path, href) ? "page" : undefined}
             className={cn(
-              "flex min-h-16 flex-col items-center justify-center gap-1 text-xs font-semibold",
+              "flex min-h-16 flex-col items-center justify-center gap-1 text-sm font-semibold",
               isActive(path, href) ? "text-accent-strong" : "text-muted",
             )}
           >

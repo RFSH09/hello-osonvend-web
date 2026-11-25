@@ -6,8 +6,6 @@ const PROTECT = ["Hello", "Payme", "Click", "Telegram", "WhatsApp", "Instagram",
 const DIGRAPHS = [["o'", "ў"], ["g'", "ғ"], ["sh", "ш"], ["ch", "ч"], ["yo", "ё"], ["yu", "ю"], ["ya", "я"], ["ye", "е"], ["ng", "нг"]];
 const SINGLE = { c: "к", a: "а", b: "б", d: "д", e: "е", f: "ф", g: "г", h: "ҳ", i: "и", j: "ж", k: "к", l: "л", m: "м", n: "н", o: "о", p: "п", q: "қ", r: "р", s: "с", t: "т", u: "у", v: "в", x: "х", y: "й", z: "з" };
 
-const isLetter = (c) => /[a-zA-Z]/.test(c ?? "");
-
 function word(w) {
   let out = "";
   for (let i = 0; i < w.length; ) {
@@ -49,6 +47,7 @@ function translit(s) {
 
 function walk(v) {
   if (typeof v === "string") return translit(v);
+  if (Array.isArray(v)) return v.map(walk);
   return Object.fromEntries(Object.entries(v).map(([k, x]) => [k, walk(x)]));
 }
 

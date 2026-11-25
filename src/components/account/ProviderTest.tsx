@@ -40,7 +40,7 @@ export function ProviderTest({ provider }: { provider: Provider }) {
       <div className="bg-brand-amber px-4 py-2 text-center text-sm font-extrabold tracking-wide text-navy">{t("testBanner")}</div>
       <div className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center gap-5 px-5 py-8">
         <div className="relative rounded-3xl border-2 border-dashed border-brand-amber bg-surface p-6 shadow-lg">
-          <span className="absolute -top-3 right-4 rounded-full bg-brand-amber px-3 py-0.5 text-xs font-extrabold text-navy">TEST</span>
+          <span className="absolute -top-3 right-4 rounded-full bg-brand-amber px-3 py-0.5 text-sm font-extrabold text-navy">TEST</span>
           <div className="mb-4"><BrandLogo brand={provider} className="scale-125 origin-left" /></div>
           <h1 className="font-display text-2xl font-extrabold">{t("title", { provider: name })}</h1>
           <p className="mt-2 text-muted">{t("text", { provider: name })}</p>
@@ -48,7 +48,7 @@ export function ProviderTest({ provider }: { provider: Provider }) {
             <Lock size={18} className="text-muted" aria-hidden />
             {t("sample")}
           </div>
-          <p className="mt-3 text-xs text-muted">{t("noInput")}</p>
+          <p className="mt-3 text-sm text-muted">{t("noInput")}</p>
         </div>
 
         {ready && !user ? (

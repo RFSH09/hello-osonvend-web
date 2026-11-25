@@ -18,7 +18,9 @@ export function useAsync<T>(fn: () => Promise<T>, deps: unknown[] = []): Async<T
   const [state, setState] = useState<{ status: "loading" | "error" | "ok"; data?: T }>({ status: "loading" });
   const [nonce, setNonce] = useState(0);
   const fnRef = useRef(fn);
-  fnRef.current = fn;
+  useEffect(() => {
+    fnRef.current = fn;
+  });
 
   useEffect(() => {
     let alive = true;
@@ -41,16 +43,15 @@ export function useAsync<T>(fn: () => Promise<T>, deps: unknown[] = []): Async<T
   return { status: "ok", data: state.data as T, retry };
 }
 
-/** Profile name for the header avatar (empty when logged out). */
+function nameSnapshot(): string {
+  try {
+    return sessionPhone() ? readDb().profile.name : "";
+  } catch {
+    return "";
+  }
+}
+
+/** Profile name for the header avatar (empty when logged out). Re-reads when the mock store changes. */
 export function useProfileName(): string {
-  const version = useStoreVersion();
-  const [name, setName] = useState("");
-  useEffect(() => {
-    try {
-      setName(sessionPhone() ? readDb().profile.name : "");
-    } catch {
-      setName("");
-    }
-  }, [version]);
-  return name;
+  return useSyncExternalStore(subscribe, nameSnapshot, () => "");
 }

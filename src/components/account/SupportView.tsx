@@ -27,7 +27,7 @@ function Timeline({ ticket, locale }: { ticket: Ticket; locale: string }) {
         return (
           <li key={s} className="flex gap-3">
             <div className="flex flex-col items-center">
-              <span className={cn("flex size-7 items-center justify-center rounded-full text-xs font-bold", done ? "bg-accent text-navy" : "bg-border text-muted", i === current && "ring-4 ring-accent/30")}>
+              <span className={cn("flex size-7 items-center justify-center rounded-full text-sm font-bold", done ? "bg-accent text-navy" : "bg-border text-muted", i === current && "ring-4 ring-accent/30")}>
                 {done ? <Check size={14} aria-hidden /> : i + 1}
               </span>
               {i < STEPS.length - 1 && <span className={cn("my-1 h-6 w-0.5", i < current ? "bg-accent" : "bg-border")} />}

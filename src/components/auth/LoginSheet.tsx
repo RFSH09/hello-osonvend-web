@@ -33,6 +33,7 @@ export function LoginSheet({
   // reset every time the sheet opens
   useEffect(() => {
     if (open) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- reset the form each time the sheet opens
       setStep("phone");
       setCode("");
       setError(null);
@@ -55,11 +56,6 @@ export function LoginSheet({
       .catch(() => {});
     return () => ac.abort();
   }, [step, open]);
-
-  useEffect(() => {
-    if (step === "code" && code.length === 6) void submitCode(code);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [code]);
 
   async function sendCode() {
     if (!isCompletePhone(digits)) return setError(t("login.invalid"));
@@ -90,6 +86,12 @@ export function LoginSheet({
       setBusy(false);
     }
   }
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- auto-submit as soon as the 6th digit is entered (typed or WebOTP)
+    if (step === "code" && code.length === 6) void submitCode(code);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [code]);
 
   return (
     <BottomSheet open={open} onClose={onClose} title={step === "phone" ? t("login.title") : t("login.codeTitle")} closeLabel={t("common.close")}>

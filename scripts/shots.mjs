@@ -122,6 +122,43 @@ async function run(kind, viewport, mobile) {
   await page.screenshot({ path: `${OUT}/${kind}/account-settings-delete-sheet.png` });
   await page.close();
 
+  // fridge page: login sheet (anonymous) and every flow state (logged in)
+  {
+    const anon = await ctx.newPage();
+    await anon.goto(BASE + "/uz/refrigerator/W0016188", { waitUntil: "domcontentloaded" });
+    await settle(anon);
+    await anon.getByRole("button", { name: "Eshikni ochish" }).click();
+    await anon.waitForTimeout(600);
+    await anon.screenshot({ path: `${OUT}/${kind}/fridge-state-login-sheet.png` });
+    await anon.close();
+
+    const fp = await logged.newPage();
+    await fp.goto(BASE + "/uz/refrigerator/W0016188", { waitUntil: "domcontentloaded" });
+    await settle(fp);
+    await fp.screenshot({ path: `${OUT}/${kind}/fridge-state-idle.png` });
+    await fp.getByRole("button", { name: "Eshikni ochish" }).click();
+    await fp.waitForTimeout(700);
+    await fp.screenshot({ path: `${OUT}/${kind}/fridge-state-unlocking.png` });
+    await fp.waitForSelector("text=ESHIK OCHIQ", { timeout: 8000 });
+    await fp.waitForTimeout(1300);
+    await fp.screenshot({ path: `${OUT}/${kind}/fridge-state-door-open.png` });
+    await fp.getByRole("button", { name: "Eshikni yopdim" }).click();
+    await fp.waitForTimeout(700);
+    await fp.screenshot({ path: `${OUT}/${kind}/fridge-state-processing.png` });
+    await fp.waitForSelector("text=Jami", { timeout: 9000 });
+    await fp.waitForTimeout(500);
+    await fp.screenshot({ path: `${OUT}/${kind}/fridge-state-receipt.png` });
+    for (const st of ["nothing_taken", "error"]) {
+      await fp.goto(BASE + "/uz/refrigerator/W0016188", { waitUntil: "domcontentloaded" });
+      await settle(fp);
+      await fp.getByRole("button", { name: /^DEV/ }).click();
+      await fp.getByRole("button", { name: st, exact: true }).click();
+      await fp.waitForTimeout(400);
+      await fp.screenshot({ path: `${OUT}/${kind}/fridge-state-${st.replace("_", "-")}.png` });
+    }
+    await fp.close();
+  }
+
   if (!mobile) {
     const p = await logged.newPage();
     await p.goto(BASE + "/uz", { waitUntil: "domcontentloaded" });
@@ -145,7 +182,7 @@ async function run(kind, viewport, mobile) {
     const p = await ctx.newPage();
     await p.goto(BASE + "/uz/locations", { waitUntil: "domcontentloaded" });
     await settle(p);
-    await p.locator("ul button[aria-label=\"Business Center — Chilonzor\"]").click();
+    await p.locator("button[aria-label='Telekom ofisi']").first().click();
     await p.waitForTimeout(1500);
     await p.screenshot({ path: `${OUT}/desktop/locations-selected.png` });
     await p.close();

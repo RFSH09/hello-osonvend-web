@@ -20,7 +20,7 @@ export function CardTile({ card, className }: { card: SavedCard; className?: str
       <div className="relative flex items-start justify-between">
         <BrandLogo brand={card.provider} onDark />
         {card.isDefault && (
-          <span className="rounded-full bg-accent px-3 py-1 text-xs font-bold text-navy">{t("defaultBadge")}</span>
+          <span className="rounded-full bg-accent px-3 py-1 text-sm font-bold text-navy">{t("defaultBadge")}</span>
         )}
       </div>
       <div className="relative">

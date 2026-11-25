@@ -2,12 +2,13 @@
 
 import { ChevronRight, Gift, LifeBuoy, Loader2, LogOut, Settings } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAuth } from "@/components/auth/AuthProvider";
 import { BottomSheet, useToast } from "@/components/ui/overlays";
 import { Button, Card, Skeleton } from "@/components/ui/primitives";
 import { Link } from "@/i18n/navigation";
 import * as api from "@/lib/account/api";
+import type { Profile } from "@/lib/account/types";
 import { config } from "@/config";
 import { formatNational, isCompletePhone, nationalDigits, toDisplayPhone } from "@/lib/phone";
 import { useAsync } from "./hooks";
@@ -19,24 +20,14 @@ export function initials(name: string) {
   return name.split(" ").filter(Boolean).slice(0, 2).map((w) => w[0]!.toUpperCase()).join("") || "H";
 }
 
-function ChangePhone({ open, onClose }: { open: boolean; onClose: () => void }) {
+function ChangePhoneBody({ onClose }: { onClose: () => void }) {
   const t = useTranslations("account.profile");
-  const tc = useTranslations("common");
   const toast = useToast();
   const [step, setStep] = useState<"phone" | "code">("phone");
   const [digits, setDigits] = useState("");
   const [code, setCode] = useState("");
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (open) {
-      setStep("phone");
-      setDigits("");
-      setCode("");
-      setErr(null);
-    }
-  }, [open]);
 
   async function confirm() {
     setBusy(true);
@@ -52,68 +43,65 @@ function ChangePhone({ open, onClose }: { open: boolean; onClose: () => void }) 
     }
   }
 
+  return step === "phone" ? (
+    <form
+      className="flex flex-col gap-4"
+      onSubmit={(e) => {
+        e.preventDefault();
+        if (!isCompletePhone(digits)) return setErr(t("phoneInvalid"));
+        setErr(null);
+        setStep("code");
+      }}
+    >
+      <label className="flex flex-col gap-2 font-medium">
+        {t("newPhone")}
+        <div className="flex min-h-12 items-center rounded-xl border border-border bg-background px-4 focus-within:border-accent">
+          <span className="pr-2 font-semibold text-muted">+998</span>
+          <input inputMode="numeric" autoFocus placeholder="90 123 45 67" value={formatNational(digits)} onChange={(e) => setDigits(nationalDigits(e.target.value))} className="w-full bg-transparent py-3 outline-none" />
+        </div>
+      </label>
+      {err && <p role="alert" className="text-sm font-medium text-brand-red">{err}</p>}
+      <Button type="submit" variant="accent" size="lg">{t("sendCode")}</Button>
+    </form>
+  ) : (
+    <div className="flex flex-col gap-4">
+      <p className="text-muted">{t("codeText", { phone: toDisplayPhone(digits) })}</p>
+      <input
+        inputMode="numeric"
+        autoComplete="one-time-code"
+        autoFocus
+        maxLength={6}
+        aria-label={t("code")}
+        value={code}
+        onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
+        className={`${field} text-center font-display text-2xl font-bold tracking-[0.5em]`}
+      />
+      {err && <p role="alert" className="text-sm font-medium text-brand-red">{err}</p>}
+      <Button variant="accent" size="lg" disabled={code.length !== 6 || busy} onClick={confirm}>
+        {busy && <Loader2 className="animate-spin" size={18} aria-hidden />}{t("confirm")}
+      </Button>
+    </div>
+  );
+}
+
+function ChangePhone({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const t = useTranslations("account.profile");
+  const tc = useTranslations("common");
   return (
     <BottomSheet open={open} onClose={onClose} title={t("changeTitle")} closeLabel={tc("close")}>
-      {step === "phone" ? (
-        <form
-          className="flex flex-col gap-4"
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (!isCompletePhone(digits)) return setErr(t("phoneInvalid"));
-            setErr(null);
-            setStep("code");
-          }}
-        >
-          <label className="flex flex-col gap-2 font-medium">
-            {t("newPhone")}
-            <div className="flex min-h-12 items-center rounded-xl border border-border bg-background px-4 focus-within:border-accent">
-              <span className="pr-2 font-semibold text-muted">+998</span>
-              <input inputMode="numeric" autoFocus placeholder="90 123 45 67" value={formatNational(digits)} onChange={(e) => setDigits(nationalDigits(e.target.value))} className="w-full bg-transparent py-3 outline-none" />
-            </div>
-          </label>
-          {err && <p role="alert" className="text-sm font-medium text-brand-red">{err}</p>}
-          <Button type="submit" variant="accent" size="lg">{t("sendCode")}</Button>
-        </form>
-      ) : (
-        <div className="flex flex-col gap-4">
-          <p className="text-muted">{t("codeText", { phone: toDisplayPhone(digits) })}</p>
-          <input
-            inputMode="numeric"
-            autoComplete="one-time-code"
-            autoFocus
-            maxLength={6}
-            aria-label={t("code")}
-            value={code}
-            onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
-            className={`${field} text-center font-display text-2xl font-bold tracking-[0.5em]`}
-          />
-          {err && <p role="alert" className="text-sm font-medium text-brand-red">{err}</p>}
-          <Button variant="accent" size="lg" disabled={code.length !== 6 || busy} onClick={confirm}>
-            {busy && <Loader2 className="animate-spin" size={18} aria-hidden />}{t("confirm")}
-          </Button>
-        </div>
-      )}
+      <ChangePhoneBody onClose={onClose} />
     </BottomSheet>
   );
 }
 
-export function ProfileView() {
+function ProfileForm({ profile }: { profile: Profile }) {
   const t = useTranslations("account");
   const tc = useTranslations("common");
   const toast = useToast();
   const { logout } = useAuth();
-  const res = useAsync(() => api.getProfile());
-  const [form, setForm] = useState({ name: "", email: "", birthday: "" });
+  const [form, setForm] = useState({ name: profile.name, email: profile.email, birthday: profile.birthday });
   const [busy, setBusy] = useState(false);
   const [sheet, setSheet] = useState(false);
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    if (res.status === "ok" && !loaded) {
-      setForm({ name: res.data.name, email: res.data.email, birthday: res.data.birthday });
-      setLoaded(true);
-    }
-  }, [res, loaded]);
 
   async function save(e: React.FormEvent) {
     e.preventDefault();
@@ -128,14 +116,10 @@ export function ProfileView() {
     }
   }
 
-  if (res.status === "error") return <ErrorState onRetry={res.retry} />;
-
   return (
     <div>
       <PageHeader title={t("menu.profile")} />
-      {res.status === "loading" ? (
-        <div className="flex flex-col gap-3"><Skeleton className="h-24 w-full rounded-card" /><Skeleton className="h-72 w-full rounded-card" /></div>
-      ) : (
+      {(
         <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
           <form onSubmit={save}>
             <Card className="flex flex-col gap-5 p-6">
@@ -143,7 +127,7 @@ export function ProfileView() {
                 <span aria-hidden className="flex size-16 items-center justify-center rounded-full bg-navy font-display text-2xl font-extrabold text-white">{initials(form.name)}</span>
                 <div>
                   <div className="font-display text-xl font-bold">{form.name || t("profile.noName")}</div>
-                  <div className="text-muted">{toDisplayPhone(res.data.phone)}</div>
+                  <div className="text-muted">{toDisplayPhone(profile.phone)}</div>
                 </div>
               </div>
               <label className="flex flex-col gap-1.5 font-medium">{t("profile.name")}
@@ -152,7 +136,7 @@ export function ProfileView() {
               <div className="flex flex-col gap-1.5 font-medium">
                 {t("profile.phone")}
                 <div className="flex flex-wrap items-center gap-3">
-                  <input readOnly value={toDisplayPhone(res.data.phone)} aria-label={t("profile.phone")} className={`${field} max-w-xs bg-border/40`} />
+                  <input readOnly value={toDisplayPhone(profile.phone)} aria-label={t("profile.phone")} className={`${field} max-w-xs bg-border/40`} />
                   <Button type="button" variant="outline" onClick={() => setSheet(true)}>{t("profile.changePhone")}</Button>
                 </div>
                 <span className="text-sm font-normal text-muted">{t("profile.phoneNote")}</span>
@@ -191,4 +175,17 @@ export function ProfileView() {
       <span className="sr-only">{tc("loading")}</span>
     </div>
   );
+}
+
+export function ProfileView() {
+  const res = useAsync(() => api.getProfile());
+  if (res.status === "error") return <ErrorState onRetry={res.retry} />;
+  if (res.status === "loading")
+    return (
+      <div>
+        <PageHeader title="" />
+        <div className="flex flex-col gap-3"><Skeleton className="h-24 w-full rounded-card" /><Skeleton className="h-72 w-full rounded-card" /></div>
+      </div>
+    );
+  return <ProfileForm profile={res.data} />;
 }

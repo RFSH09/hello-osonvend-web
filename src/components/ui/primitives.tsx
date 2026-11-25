@@ -143,7 +143,7 @@ export function ProductCard({
         {qty !== undefined && (
           <Badge
             tone={soldOut ? "danger" : low ? "warning" : "success"}
-            className={cn("absolute left-2 top-2 px-2 py-0.5 text-xs", ok && "bg-green-100")}
+            className={cn("absolute left-2 top-2 px-2 py-0.5 text-sm", ok && "bg-green-100")}
           >
             {soldOut ? soldOutLabel : low ? lowLabel : availableLabel}
           </Badge>
@@ -151,7 +151,7 @@ export function ProductCard({
       </div>
       <div className="flex min-h-11 flex-col gap-0.5">
         <span className="text-sm font-semibold leading-tight sm:text-base">{product.name}</span>
-        {subtitle && <span className="text-xs text-muted sm:text-sm">{subtitle}</span>}
+        {subtitle && <span className="text-sm text-muted">{subtitle}</span>}
       </div>
       {soldOut ? (
         <span className="font-display font-bold text-muted">{soldOutLabel}</span>

@@ -134,9 +134,11 @@ export function Header(): ReactNode {
   const ta = useTranslations("account");
   const pathname = usePathname();
   const { user, logout, openLogin } = useAuth();
-  const [menu, setMenu] = useState(false);
-
-  useEffect(() => setMenu(false), [pathname]);
+  // the mobile menu is open only for the page it was opened on, so navigating closes it
+  const [menuAt, setMenuAt] = useState<string | null>(null);
+  const menu = menuAt === pathname;
+  const setMenu = (open: boolean | ((o: boolean) => boolean)) =>
+    setMenuAt((cur) => ((typeof open === "function" ? open(cur === pathname) : open) ? pathname : null));
 
   if (pathname.startsWith("/provider-test")) return null;
 

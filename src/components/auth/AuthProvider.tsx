@@ -30,6 +30,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     try {
       const raw = localStorage.getItem(KEY) ?? sessionStorage.getItem(KEY);
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- restoring the session from browser storage on mount
       if (raw) setUser(JSON.parse(raw));
     } catch {}
     setReady(true);
