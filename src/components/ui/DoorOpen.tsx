@@ -8,11 +8,11 @@ export function DoorOpen({ open }: { open: boolean }) {
   return (
     <div className="relative mx-auto h-56 w-40" style={{ perspective: 800 }}>
       <motion.div
-        className="absolute inset-0 flex items-center justify-center rounded-2xl bg-accent"
+        className="absolute inset-0 flex items-center justify-center rounded-2xl bg-white shadow-lg"
         animate={{ opacity: open ? 1 : 0.15, scale: open ? 1 : 0.96 }}
         transition={{ duration: 0.25 }}
       >
-        <Check size={56} className="text-navy" aria-hidden />
+        <Check size={56} className="text-accent" aria-hidden />
       </motion.div>
       <motion.div
         className="absolute inset-0 origin-left rounded-2xl border-4 border-navy bg-navy"

@@ -1,10 +1,191 @@
 {
-  "meta": { "title": "Hello by Osonvend", "description": "Aqlli muzlatgich-do'kon. Skanerlang. Oling. Keting." },
+  "meta": { "title": "Hello — aqlli muzlatgich-do'kon", "description": "Hello: sun'iy intellektli muzlatgich-do'kon. Skanerlang. Oling. Keting. Kassasiz, navbatsiz." },
   "brand": { "name": "Hello", "tagline": "Skanerlang. Oling. Keting." },
-  "nav": { "home": "Bosh sahifa", "how": "Qanday ishlaydi", "business": "Biznes uchun", "locations": "Manzillar", "products": "Mahsulotlar", "about": "Biz haqimizda", "contact": "Aloqa" },
-  "common": { "language": "Til", "theme": "Mavzu", "support": "Yordam", "retry": "Qayta urinish", "close": "Yopish", "loading": "Yuklanmoqda…", "unit": "so'm" },
-  "hero": { "title": "Skanerlang. Oling. Keting.", "subtitle": "Hello — sun'iy intellektli muzlatgich-do'kon. Kassa ham, navbat ham yo'q.", "ctaFind": "Eng yaqin muzlatgich", "ctaBusiness": "Biznes uchun" },
-  "steps": { "title": "Qanday ishlaydi", "scan": "QR kodni skanerlang", "login": "Telefon raqam bilan kiring", "take": "Mahsulotni oling, eshikni yoping", "pay": "Payme yoki Click orqali to'lov" },
-  "empty": { "title": "Hozircha hech narsa yo'q", "text": "Bu yerda ma'lumotlar paydo bo'ladi." },
-  "showcase": { "title": "Dizayn tizimi", "openDoor": "Eshikni ochish", "doorDemo": "Eshik ochilish animatsiyasi", "toast": "Toast ko'rsatish", "sheet": "Pastki oyna", "sheetText": "Bu yerda kirish va boshqa amallar bo'ladi." }
+  "nav": { "home": "Bosh sahifa", "how": "Qanday ishlaydi", "products": "Mahsulotlar", "locations": "Manzillar", "business": "Biznes uchun", "about": "Biz haqimizda", "login": "Kirish", "logout": "Chiqish", "menu": "Menyu" },
+  "common": { "language": "Til", "theme": "Mavzu", "support": "Yordam", "retry": "Qayta urinish", "close": "Yopish", "loading": "Yuklanmoqda…", "unit": "so'm", "all": "Hammasi" },
+  "status": { "available": "Mavjud", "low": "Kam qoldi", "offline": "Ishlamayapti" },
+  "stock": { "soldOut": "Tugagan", "low": "Kam qoldi" },
+  "categories": { "drinks": "Ichimliklar", "snacks": "Snaklar", "chocolate": "Shokoladlar" },
+  "districts": { "yunusobod": "Yunusobod", "mirzoUlugbek": "Mirzo Ulug'bek", "chilonzor": "Chilonzor", "shayxontohur": "Shayxontohur", "mirobod": "Mirobod", "yakkasaroy": "Yakkasaroy", "olmazor": "Olmazor", "sergeli": "Sergeli" },
+  "access": { "public": "Hamma uchun", "staff": "Xodimlar uchun" },
+  "hero": {
+    "badge": "AI muzlatgich-do'kon",
+    "title": "Skanerlang. Oling. Keting.",
+    "subtitle": "Hello — sun'iy intellektli muzlatgich-do'kon. QR kodni skanerlang, mahsulotni oling, to'lov avtomatik yechiladi. Kassa ham, navbat ham yo'q.",
+    "ctaFind": "Eng yaqin muzlatgich",
+    "ctaBusiness": "Ofisingizga Hello",
+    "payVia": "To'lov:",
+    "noCashier": "Kassasiz"
+  },
+  "stats": { "fridges": "muzlatgich", "orders": "xarid", "sinceLabel": "yildan beri" },
+  "steps": {
+    "title": "Qanday ishlaydi",
+    "subtitle": "To'rt oddiy qadam — va siz ketdingiz.",
+    "items": {
+      "s1": { "t": "QR kodni skanerlang", "d": "Muzlatgichdagi QR kodni telefon kamerasi bilan skanerlang." },
+      "s2": { "t": "Telefon raqam bilan kiring", "d": "Raqamingizni kiriting va SMS kodni tasdiqlang. Dastur o'rnatish shart emas." },
+      "s3": { "t": "Oling va eshikni yoping", "d": "Eshik ochiladi. Kerakli narsani oling va eshikni yoping." },
+      "s4": { "t": "To'lov avtomatik", "d": "Kameralar tanlangan mahsulotlarni aniqlaydi, to'lov Payme yoki Click orqali yechiladi." }
+    }
+  },
+  "why": {
+    "title": "Nega Hello",
+    "subtitle": "Tez, qulay va shaffof — har bir xaridda.",
+    "items": {
+      "w1": { "t": "24/7 ishlaydi", "d": "Muzlatgich kechayu kunduz ochiq. Tanaffus ham, yopilish vaqti ham yo'q." },
+      "w2": { "t": "Navbat yo'q", "d": "Kassa oldida turib qolmaysiz. Oldingiz — ketdingiz." },
+      "w3": { "t": "Kassir kerak emas", "d": "Hammasini kameralar va sun'iy intellekt hal qiladi." },
+      "w4": { "t": "Adolatli narx", "d": "Do'kondagidek narxlar. Yashirin qo'shimcha to'lovlar yo'q." },
+      "w5": { "t": "Har xarid videoda", "d": "Har bir xarid videoga olinadi. Xato bo'lsa, videoni tekshiramiz." },
+      "w6": { "t": "Fiskal chek", "d": "Har bir xarid uchun rasmiy fiskal chek beriladi." }
+    }
+  },
+  "popular": { "title": "Mashhur mahsulotlar", "subtitle": "Eng ko'p olinadigan mahsulotlar.", "all": "Barcha mahsulotlar" },
+  "bizHome": {
+    "title": "Ofisingiz uchun Hello",
+    "text": "Xodimlaringiz yoki mehmonlaringiz uchun qulay, doim to'ldirilgan muzlatgich. O'rnatish va xizmat ko'rsatish bizdan.",
+    "cta": "Hamkor bo'lish",
+    "m1v": "<1 m²", "m1l": "Kam joy egallaydi",
+    "m2v": "1 kunda", "m2l": "O'rnatiladi",
+    "m3v": "Onlayn", "m3l": "Monitoring"
+  },
+  "faq": {
+    "title": "Ko'p so'raladigan savollar",
+    "items": {
+      "q1": { "q": "Dastur yuklab olish kerakmi?", "a": "Yo'q. QR kodni skanerlang va brauzerda telefon raqamingiz bilan kiring." },
+      "q2": { "q": "To'lov qanday amalga oshadi?", "a": "Payme yoki Click kartangiz orqali. Karta ulash to'lov provayderining xavfsiz sahifasida bajariladi." },
+      "q3": { "q": "Agar sun'iy intellekt xato qilsa-chi?", "a": "Har bir xarid videoga olinadi. «Xarid noto'g'ri?» tugmasini bosing — videoni tekshirib, 24 soat ichida javob beramiz." },
+      "q4": { "q": "Eshik ochilmasa nima qilish kerak?", "a": "Sahifani yangilab, qayta urinib ko'ring. Ochilmasa, yordam tugmasi orqali Telegram yoki telefon orqali yozing — pul yechilmaydi." },
+      "q5": { "q": "Chek olamanmi?", "a": "Ha. Har bir xarid uchun fiskal chek chiqariladi va hisobingizda saqlanadi." },
+      "q6": { "q": "Ofisimizga muzlatgich qo'ydirish mumkinmi?", "a": "Ha. «Biznes uchun» sahifasida so'rov qoldiring, biz siz bilan bog'lanamiz." }
+    }
+  },
+  "footer": {
+    "text": "OOO «OSONVEND» — aqlli muzlatgich-do'konlar. Toshkent.",
+    "pages": "Sahifalar",
+    "contact": "Aloqa",
+    "address": "Ko'kcha Darvoza ko'chasi 10, Shayxontohur, Toshkent",
+    "rights": "Barcha huquqlar himoyalangan."
+  },
+  "fridge": {
+    "contents": "Ichida nima bor",
+    "open": "Eshikni ochish",
+    "offlineTitle": "Bu muzlatgich hozir ishlamayapti",
+    "offlineText": "Iltimos, yaqin atrofdagi boshqa muzlatgichdan foydalaning.",
+    "nearest": "Eng yaqin muzlatgichlar",
+    "km": "{km} km",
+    "trust1": "Payme va Click orqali to'lov",
+    "trust2": "Har bir xarid videoga olinadi",
+    "trust3": "Fiskal chek beriladi",
+    "secure": "Karta ma'lumotlari faqat to'lov provayderida saqlanadi."
+  },
+  "login": {
+    "title": "Telefon raqamingiz",
+    "text": "SMS orqali tasdiqlash kodini yuboramiz.",
+    "phone": "Telefon raqam",
+    "send": "Kod yuborish",
+    "codeTitle": "SMS kod",
+    "codeText": "{phone} raqamiga yuborilgan 6 xonali kodni kiriting.",
+    "resend": "Kodni qayta yuborish",
+    "resendIn": "{s} soniyadan keyin qayta yuborish",
+    "remember": "Bu qurilmani eslab qol",
+    "invalid": "Telefon raqamni to'liq kiriting",
+    "wrongCode": "Kod noto'g'ri. Qayta urinib ko'ring.",
+    "change": "Raqamni o'zgartirish",
+    "sendFailed": "Kod yuborilmadi. Qayta urinib ko'ring."
+  },
+  "flow": {
+    "unlocking": "Eshik ochilmoqda…",
+    "unlockingText": "Iltimos, kuting",
+    "doorOpen": "ESHIK OCHIQ",
+    "doorOpenText": "Mahsulotni oling va eshikni yoping",
+    "closeReminder": "Eshikni yopishni unutmang!",
+    "doorClosed": "Eshikni yopdim",
+    "processing": "Hisoblanmoqda…",
+    "processingText": "Kameralar olingan mahsulotlarni aniqlayapti",
+    "nothingTitle": "Hech narsa olinmadi",
+    "nothingText": "Pul yechilmadi.",
+    "errorTitle": "Xatolik yuz berdi",
+    "errorText": "Nimadir xato ketdi. Pul yechilmadi. Qayta urinib ko'ring yoki yordamga yozing.",
+    "errorTimeout": "Eshik ochilmadi. Pul yechilmadi. Qayta urinib ko'ring yoki yordamga yozing.",
+    "done": "Tayyor"
+  },
+  "receipt": {
+    "title": "Chek",
+    "qty": "{n} dona",
+    "total": "Jami",
+    "method": "To'lov usuli",
+    "time": "Vaqt",
+    "fiscal": "Fiskal chek",
+    "fiscalText": "Soliq xizmatida tekshirish uchun QR kod.",
+    "download": "Yuklab olish",
+    "wrong": "Xarid noto'g'ri?",
+    "wrongText": "Videoni tekshirib, 24 soat ichida javob beramiz.",
+    "report": "Muammo haqida yozish"
+  },
+  "notFound": {
+    "title": "Sahifa topilmadi",
+    "text": "Bunday sahifa yo'q yoki ko'chirilgan.",
+    "home": "Bosh sahifaga",
+    "fridgeTitle": "Muzlatgich topilmadi",
+    "fridgeText": "Bu raqamdagi muzlatgich topilmadi. QR kodni qayta skanerlang yoki yaqin muzlatgichni tanlang.",
+    "fridgeCta": "Manzillarni ko'rish"
+  },
+  "biz": {
+    "title": "Ofisingizga Hello muzlatgichini qo'ying",
+    "subtitle": "Xodimlaringiz uchun 24/7 ishlaydigan, xizmat ko'rsatilishi bizdan bo'lgan aqlli muzlatgich-do'kon.",
+    "free": "Joy egasi uchun bepul",
+    "benefitsTitle": "Nima uchun hamkor bo'lish kerak",
+    "benefits": {
+      "b1": { "t": "1 m² dan kam joy", "d": "Muzlatgich ixcham — bir burchakka sig'adi." },
+      "b2": { "t": "Taxminan 100 kg", "d": "Oddiy pol ham yetarli, maxsus tayyorgarlik kerak emas." },
+      "b3": { "t": "1 kunda o'rnatiladi", "d": "Yetkazib berish, ulash va ishga tushirish — bir kun ichida." },
+      "b4": { "t": "Onlayn monitoring", "d": "Holat va qoldiqlar doim nazoratda, to'ldirish o'z vaqtida." },
+      "b5": { "t": "24/7 xizmat", "d": "Xodimlar istagan vaqtda foydalanadi — navbat va kassa yo'q." }
+    },
+    "idealTitle": "Qayerga mos",
+    "ideal": { "i1": "Ofislar", "i2": "Universitetlar", "i3": "Klinikalar", "i4": "Biznes markazlar", "i5": "Zavodlar" },
+    "formTitle": "Hamkorlik uchun so'rov",
+    "formText": "Ma'lumotlarni qoldiring — biz siz bilan bog'lanamiz.",
+    "form": {
+      "company": "Kompaniya nomi", "contact": "Aloqa uchun shaxs", "phone": "Telefon raqam",
+      "phoneInvalid": "Telefon raqamni to'liq kiriting", "type": "Joy turi", "address": "Manzil",
+      "people": "Xodimlar / odamlar soni", "comment": "Izoh", "submit": "So'rov yuborish",
+      "success": "Rahmat! So'rovingiz qabul qilindi", "successText": "Tez orada siz bilan bog'lanamiz.",
+      "error": "Yuborib bo'lmadi. Qayta urinib ko'ring."
+    },
+    "types": { "office": "Ofis", "university": "Universitet", "clinic": "Klinika", "center": "Biznes markaz", "factory": "Zavod", "other": "Boshqa" }
+  },
+  "productsPage": { "title": "Mahsulotlar", "subtitle": "Ichimliklar, snacklar va shokoladlar — narxlar muzlatgichdagi bilan bir xil.", "search": "Mahsulotni qidirish", "empty": "Hech narsa topilmadi" },
+  "locationsPage": { "title": "Manzillar", "subtitle": "Toshkentdagi Hello muzlatgichlari.", "district": "Tuman", "allDistricts": "Barcha tumanlar", "empty": "Bu tumanda muzlatgich yo'q", "access": "Kirish" },
+  "howPage": {
+    "title": "Qanday ishlaydi",
+    "subtitle": "Skanerlang, oling, keting — qolganini Hello hal qiladi.",
+    "detail": {
+      "s1": "Muzlatgich yonidagi QR kodni oching. Sahifa brauzerda ochiladi, dastur kerak emas.",
+      "s2": "Telefon raqamingizni kiriting va SMS kodni tasdiqlang. Birinchi kirishda hisob avtomatik yaratiladi.",
+      "s3": "Eshik qulfdan chiqadi. Kerakli mahsulotni oling va eshikni yoping.",
+      "s4": "Kameralar olingan mahsulotlarni aniqlaydi. Summa Payme yoki Click kartangizdan yechiladi va fiskal chek keladi."
+    },
+    "whatIfTitle": "Agar... bo'lsa-chi?",
+    "whatIf": {
+      "q1": { "q": "Sun'iy intellekt xato qilsa-chi?", "a": "Har bir xarid videoga olinadi. «Xarid noto'g'ri?» tugmasini bosing, videoni tekshiramiz va 24 soat ichida javob beramiz. Xato tasdiqlansa, pul qaytariladi." },
+      "q2": { "q": "Eshik ochilmasa-chi?", "a": "10 soniyada ochilmasa, xato ko'rsatiladi va pul yechilmaydi. Qayta urinib ko'ring yoki yordamga yozing." },
+      "q3": { "q": "Karta rad etilsa-chi?", "a": "Boshqa kartani ulang yoki balansni tekshiring. Karta ulash Payme yoki Click sahifasida bajariladi." }
+    }
+  },
+  "aboutPage": {
+    "title": "Biz haqimizda",
+    "lead": "Hello — OOO «OSONVEND» tomonidan Toshkentda ishlab chiqilgan aqlli muzlatgich-do'kon. 2024-yil 22-avgustdan beri ishlaymiz.",
+    "aiTitle": "Texnologiya haqida ochiq gapiramiz",
+    "aiText": "Bugun biz sinovdan o'tgan sun'iy intellekt tanish tizimidan foydalanamiz. O'zimizning modulimiz — keyingi maqsadimiz.",
+    "roadmapTitle": "Rejalarimiz",
+    "roadmap": {
+      "r1": { "t": "Toshkentning ko'proq joylari", "d": "Ofis va universitetlarda muzlatgichlar sonini oshiramiz." },
+      "r2": { "t": "Viloyatlar", "d": "Hello'ni boshqa shaharlarga olib chiqamiz." },
+      "r3": { "t": "Butun O'zbekiston", "d": "Respublika bo'ylab xizmat." },
+      "r4": { "t": "Kassasiz do'kon", "d": "Muzlatgichdan to'liq kassasiz do'konga." }
+    },
+    "contactTitle": "Aloqa"
+  }
 }

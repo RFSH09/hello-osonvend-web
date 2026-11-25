@@ -3,8 +3,10 @@ import { Inbox } from "lucide-react";
 import type { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 import { formatPrice } from "@/lib/format";
+import type { Product } from "@/lib/api/types";
+import { ProductArt } from "@/components/art/ProductArt";
 
-const buttonStyles = cva(
+export const buttonStyles = cva(
   "inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-6 text-base font-semibold transition-colors duration-200 disabled:opacity-50 disabled:pointer-events-none",
   {
     variants: {
@@ -109,25 +111,38 @@ export function EmptyState({
 }
 
 export function ProductCard({
-  name,
-  price,
-  imageSlot,
-  soldOut,
+  product,
+  qty,
   soldOutLabel,
+  lowLabel,
+  unit,
+  className,
 }: {
-  name: string;
-  price: number;
-  imageSlot?: ReactNode;
-  soldOut?: boolean;
-  soldOutLabel?: string;
+  product: Product;
+  qty?: number; // undefined = no stock info (catalogue)
+  soldOutLabel: string;
+  lowLabel: string;
+  unit?: string;
+  className?: string;
 }) {
+  const soldOut = qty !== undefined && qty <= 0;
+  const low = qty !== undefined && qty > 0 && qty <= 2;
   return (
-    <Card className={cn("flex flex-col gap-3 p-4", soldOut && "opacity-60")}>
-      <div className="flex aspect-square items-center justify-center rounded-xl bg-background text-4xl">
-        {imageSlot ?? <span aria-hidden>🥤</span>}
+    <Card className={cn("flex h-full flex-col gap-2 p-3 sm:p-4", className)}>
+      <div className="relative flex aspect-square items-center justify-center rounded-xl bg-background">
+        <ProductArt product={product} className={cn("size-4/5", soldOut && "opacity-40 grayscale")} />
+        {(soldOut || low) && (
+          <Badge tone={soldOut ? "danger" : "warning"} className="absolute left-2 top-2 px-2 py-0.5 text-xs">
+            {soldOut ? soldOutLabel : lowLabel}
+          </Badge>
+        )}
       </div>
-      <div className="min-h-10 font-medium leading-tight">{name}</div>
-      {soldOut ? <Badge tone="danger">{soldOutLabel}</Badge> : <PriceTag amount={price} />}
+      <div className="min-h-10 text-sm font-semibold leading-tight sm:text-base">{product.name}</div>
+      {soldOut ? (
+        <span className="font-display font-bold text-muted">{soldOutLabel}</span>
+      ) : (
+        <PriceTag amount={product.price} unit={unit} />
+      )}
     </Card>
   );
 }

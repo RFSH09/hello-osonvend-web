@@ -1,10 +1,191 @@
 {
-  "meta": { "title": "Hello by Osonvend", "description": "The AI smart vending fridge. Scan. Take. Go." },
+  "meta": { "title": "Hello — smart vending fridge", "description": "Hello: an AI smart vending fridge. Scan. Take. Go. No cashier, no queue." },
   "brand": { "name": "Hello", "tagline": "Scan. Take. Go." },
-  "nav": { "home": "Home", "how": "How it works", "business": "For business", "locations": "Locations", "products": "Products", "about": "About", "contact": "Contact" },
-  "common": { "language": "Language", "theme": "Theme", "support": "Support", "retry": "Try again", "close": "Close", "loading": "Loading…", "unit": "so'm" },
-  "hero": { "title": "Scan. Take. Go.", "subtitle": "Hello is an AI smart vending fridge. No cashier, no queue.", "ctaFind": "Find nearest fridge", "ctaBusiness": "For business" },
-  "steps": { "title": "How it works", "scan": "Scan the QR code", "login": "Sign in with your phone", "take": "Take items, close the door", "pay": "Pay with Payme or Click" },
-  "empty": { "title": "Nothing here yet", "text": "Data will show up here." },
-  "showcase": { "title": "Design system", "openDoor": "Open door", "doorDemo": "Door-open animation", "toast": "Show toast", "sheet": "Bottom sheet", "sheetText": "Sign-in and other actions will live here." }
+  "nav": { "home": "Home", "how": "How it works", "products": "Products", "locations": "Locations", "business": "For business", "about": "About", "login": "Sign in", "logout": "Sign out", "menu": "Menu" },
+  "common": { "language": "Language", "theme": "Theme", "support": "Support", "retry": "Try again", "close": "Close", "loading": "Loading…", "unit": "so'm", "all": "All" },
+  "status": { "available": "Available", "low": "Low stock", "offline": "Offline" },
+  "stock": { "soldOut": "Sold out", "low": "Low stock" },
+  "categories": { "drinks": "Drinks", "snacks": "Snacks", "chocolate": "Chocolate" },
+  "districts": { "yunusobod": "Yunusobod", "mirzoUlugbek": "Mirzo Ulug'bek", "chilonzor": "Chilonzor", "shayxontohur": "Shayxontohur", "mirobod": "Mirobod", "yakkasaroy": "Yakkasaroy", "olmazor": "Olmazor", "sergeli": "Sergeli" },
+  "access": { "public": "Open to everyone", "staff": "Staff only" },
+  "hero": {
+    "badge": "AI smart vending fridge",
+    "title": "Scan. Take. Go.",
+    "subtitle": "Hello is an AI smart vending fridge. Scan the QR code, take what you want, and payment is charged automatically. No cashier, no queue.",
+    "ctaFind": "Nearest fridge",
+    "ctaBusiness": "Hello for your office",
+    "payVia": "Pay with:",
+    "noCashier": "No cashier"
+  },
+  "stats": { "fridges": "fridges", "orders": "orders", "sinceLabel": "operating since" },
+  "steps": {
+    "title": "How it works",
+    "subtitle": "Four simple steps — and you're off.",
+    "items": {
+      "s1": { "t": "Scan the QR code", "d": "Scan the QR code on the fridge with your phone camera." },
+      "s2": { "t": "Sign in with your phone", "d": "Enter your number and confirm the SMS code. No app to install." },
+      "s3": { "t": "Take and close the door", "d": "The door unlocks. Take what you need and close the door." },
+      "s4": { "t": "Automatic payment", "d": "Cameras recognise your items and the total is charged via Payme or Click." }
+    }
+  },
+  "why": {
+    "title": "Why Hello",
+    "subtitle": "Fast, convenient and transparent — on every purchase.",
+    "items": {
+      "w1": { "t": "Open 24/7", "d": "The fridge is available day and night. No breaks, no closing time." },
+      "w2": { "t": "No queue", "d": "No waiting at a checkout. Take it and go." },
+      "w3": { "t": "No cashier needed", "d": "Cameras and AI handle everything." },
+      "w4": { "t": "Fair prices", "d": "Shop-like prices. No hidden extra fees." },
+      "w5": { "t": "Every purchase on video", "d": "Each purchase is recorded. If something looks wrong, we check the video." },
+      "w6": { "t": "Fiscal receipt", "d": "An official fiscal receipt for every purchase." }
+    }
+  },
+  "popular": { "title": "Popular products", "subtitle": "What people take most often.", "all": "All products" },
+  "bizHome": {
+    "title": "Hello for your office",
+    "text": "A convenient, always-stocked fridge for your staff or guests. Installation and service are on us.",
+    "cta": "Become a partner",
+    "m1v": "<1 m²", "m1l": "Takes little space",
+    "m2v": "1 day", "m2l": "To install",
+    "m3v": "Online", "m3l": "Monitoring"
+  },
+  "faq": {
+    "title": "Frequently asked questions",
+    "items": {
+      "q1": { "q": "Do I need to download an app?", "a": "No. Scan the QR code and sign in with your phone number in the browser." },
+      "q2": { "q": "How does payment work?", "a": "With your Payme or Click card. Card linking happens on the payment provider's secure page." },
+      "q3": { "q": "What if the AI makes a mistake?", "a": "Every purchase is recorded on video. Tap “Wrong purchase?” and we'll check the video and reply within 24 hours." },
+      "q4": { "q": "What if the door doesn't open?", "a": "Refresh and try again. If it still doesn't open, contact support via Telegram or phone — you won't be charged." },
+      "q5": { "q": "Do I get a receipt?", "a": "Yes. A fiscal receipt is issued for every purchase and saved in your account." },
+      "q6": { "q": "Can we get a fridge in our office?", "a": "Yes. Leave a request on the “For business” page and we'll get in touch." }
+    }
+  },
+  "footer": {
+    "text": "OOO “OSONVEND” — smart vending fridges. Tashkent.",
+    "pages": "Pages",
+    "contact": "Contact",
+    "address": "Ko'kcha Darvoza street 10, Shayxontohur, Tashkent",
+    "rights": "All rights reserved."
+  },
+  "fridge": {
+    "contents": "What's inside",
+    "open": "Open the door",
+    "offlineTitle": "This fridge is currently offline",
+    "offlineText": "Please use another fridge nearby.",
+    "nearest": "Nearest fridges",
+    "km": "{km} km",
+    "trust1": "Pay with Payme and Click",
+    "trust2": "Every purchase is on video",
+    "trust3": "Fiscal receipt included",
+    "secure": "Card details are stored only by the payment provider."
+  },
+  "login": {
+    "title": "Your phone number",
+    "text": "We'll send a verification code by SMS.",
+    "phone": "Phone number",
+    "send": "Send code",
+    "codeTitle": "SMS code",
+    "codeText": "Enter the 6-digit code sent to {phone}.",
+    "resend": "Resend code",
+    "resendIn": "Resend in {s} s",
+    "remember": "Remember this device",
+    "invalid": "Enter the full phone number",
+    "wrongCode": "Wrong code. Try again.",
+    "change": "Change number",
+    "sendFailed": "Couldn't send the code. Try again."
+  },
+  "flow": {
+    "unlocking": "Opening the door…",
+    "unlockingText": "Please wait",
+    "doorOpen": "DOOR OPEN",
+    "doorOpenText": "Take your items and close the door",
+    "closeReminder": "Don't forget to close the door!",
+    "doorClosed": "I closed the door",
+    "processing": "Calculating…",
+    "processingText": "Cameras are recognising your items",
+    "nothingTitle": "Nothing taken",
+    "nothingText": "You were not charged.",
+    "errorTitle": "Something went wrong",
+    "errorText": "Something went wrong. You were not charged. Try again or contact support.",
+    "errorTimeout": "The door didn't open. You were not charged. Try again or contact support.",
+    "done": "Done"
+  },
+  "receipt": {
+    "title": "Receipt",
+    "qty": "{n} pcs",
+    "total": "Total",
+    "method": "Payment method",
+    "time": "Time",
+    "fiscal": "Fiscal receipt",
+    "fiscalText": "QR code to verify with the tax service.",
+    "download": "Download",
+    "wrong": "Wrong purchase?",
+    "wrongText": "We check the video and reply within 24 hours.",
+    "report": "Report a problem"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "text": "This page doesn't exist or has moved.",
+    "home": "Back to home",
+    "fridgeTitle": "Fridge not found",
+    "fridgeText": "We couldn't find a fridge with this number. Scan the QR code again or pick a nearby fridge.",
+    "fridgeCta": "See locations"
+  },
+  "biz": {
+    "title": "Put a Hello fridge in your office",
+    "subtitle": "A smart vending fridge for your team, open 24/7 and serviced by us.",
+    "free": "Free for the location",
+    "benefitsTitle": "Why partner with us",
+    "benefits": {
+      "b1": { "t": "Under 1 m²", "d": "The fridge is compact — it fits in a corner." },
+      "b2": { "t": "About 100 kg", "d": "A normal floor is enough, no special preparation." },
+      "b3": { "t": "Installed in 1 day", "d": "Delivery, connection and launch within one day." },
+      "b4": { "t": "Online monitoring", "d": "Status and stock are always tracked, refills on time." },
+      "b5": { "t": "24/7 service", "d": "Staff can use it any time — no queue, no cashier." }
+    },
+    "idealTitle": "Ideal locations",
+    "ideal": { "i1": "Offices", "i2": "Universities", "i3": "Clinics", "i4": "Business centers", "i5": "Factories" },
+    "formTitle": "Partnership request",
+    "formText": "Leave your details and we'll get in touch.",
+    "form": {
+      "company": "Company name", "contact": "Contact person", "phone": "Phone number",
+      "phoneInvalid": "Enter the full phone number", "type": "Location type", "address": "Address",
+      "people": "Number of people", "comment": "Comment", "submit": "Send request",
+      "success": "Thank you! Your request was received", "successText": "We'll contact you shortly.",
+      "error": "Couldn't send. Please try again."
+    },
+    "types": { "office": "Office", "university": "University", "clinic": "Clinic", "center": "Business center", "factory": "Factory", "other": "Other" }
+  },
+  "productsPage": { "title": "Products", "subtitle": "Drinks, snacks and chocolate — prices match what's in the fridge.", "search": "Search products", "empty": "Nothing found" },
+  "locationsPage": { "title": "Locations", "subtitle": "Hello fridges in Tashkent.", "district": "District", "allDistricts": "All districts", "empty": "No fridges in this district", "access": "Access" },
+  "howPage": {
+    "title": "How it works",
+    "subtitle": "Scan, take, go — Hello handles the rest.",
+    "detail": {
+      "s1": "Open the QR code next to the fridge. The page opens in your browser, no app needed.",
+      "s2": "Enter your phone number and confirm the SMS code. An account is created automatically on first sign-in.",
+      "s3": "The door unlocks. Take what you need and close the door.",
+      "s4": "Cameras recognise your items. The total is charged to your Payme or Click card and a fiscal receipt arrives."
+    },
+    "whatIfTitle": "What if…?",
+    "whatIf": {
+      "q1": { "q": "What if the AI makes a mistake?", "a": "Every purchase is recorded on video. Tap “Wrong purchase?”, we check the video and reply within 24 hours. If the mistake is confirmed, you're refunded." },
+      "q2": { "q": "What if the door doesn't open?", "a": "If it doesn't open within 10 seconds, you'll see an error and won't be charged. Try again or contact support." },
+      "q3": { "q": "What if my card is declined?", "a": "Link another card or check your balance. Card linking happens on the Payme or Click page." }
+    }
+  },
+  "aboutPage": {
+    "title": "About us",
+    "lead": "Hello is a smart vending fridge built in Tashkent by OOO “OSONVEND”. We've been operating since 22 August 2024.",
+    "aiTitle": "Straight talk about our technology",
+    "aiText": "We use a proven AI recognition system today; our own module is our next goal.",
+    "roadmapTitle": "Roadmap",
+    "roadmap": {
+      "r1": { "t": "More of Tashkent", "d": "More fridges across offices and universities." },
+      "r2": { "t": "Regions", "d": "Bringing Hello to other cities." },
+      "r3": { "t": "Nationwide", "d": "Service across Uzbekistan." },
+      "r4": { "t": "Cashier-free store", "d": "From a fridge to a full cashier-free store." }
+    },
+    "contactTitle": "Contact"
+  }
 }

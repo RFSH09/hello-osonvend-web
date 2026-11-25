@@ -6,14 +6,17 @@ export function formatPrice(amount: number, unit = "so'm"): string {
   return `${sign}${digits} ${unit}`;
 }
 
-/** Display timestamps in Asia/Tashkent regardless of server/browser timezone. */
-export function formatTashkentTime(
-  date: Date | string,
-  locale = "uz",
-  opts: Intl.DateTimeFormatOptions = { dateStyle: "medium", timeStyle: "short" },
-): string {
-  const lang = locale === "uz-Cyrl" ? "uz-Cyrl-UZ" : locale;
-  return new Intl.DateTimeFormat(lang, { ...opts, timeZone: "Asia/Tashkent" }).format(
-    typeof date === "string" ? new Date(date) : date,
-  );
+/** Display timestamps in Asia/Tashkent regardless of server/browser timezone: "25.11.2026 13:25". */
+export function formatTashkentTime(date: Date | string, _locale = "uz"): string {
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Asia/Tashkent",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).formatToParts(typeof date === "string" ? new Date(date) : date);
+  const g = (t: string) => parts.find((x) => x.type === t)?.value ?? "";
+  return `${g("day")}.${g("month")}.${g("year")} ${g("hour")}:${g("minute")}`;
 }

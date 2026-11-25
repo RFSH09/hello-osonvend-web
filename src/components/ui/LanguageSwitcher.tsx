@@ -28,7 +28,7 @@ export function LanguageSwitcher() {
           onClick={() => router.replace(pathname, { locale: l })}
           className={cn(
             "min-h-11 rounded-full px-4 text-sm font-medium transition-colors duration-200",
-            l === locale ? "bg-primary text-on-primary" : "hover:bg-border/50",
+            l === locale ? "bg-accent text-navy" : "text-white hover:bg-white/10",
           )}
         >
           {LABELS[l]}
