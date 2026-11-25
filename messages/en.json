@@ -1,0 +1,10 @@
+{
+  "meta": { "title": "Hello by Osonvend", "description": "The AI smart vending fridge. Scan. Take. Go." },
+  "brand": { "name": "Hello", "tagline": "Scan. Take. Go." },
+  "nav": { "home": "Home", "how": "How it works", "business": "For business", "locations": "Locations", "products": "Products", "about": "About", "contact": "Contact" },
+  "common": { "language": "Language", "theme": "Theme", "support": "Support", "retry": "Try again", "close": "Close", "loading": "Loading…", "unit": "so'm" },
+  "hero": { "title": "Scan. Take. Go.", "subtitle": "Hello is an AI smart vending fridge. No cashier, no queue.", "ctaFind": "Find nearest fridge", "ctaBusiness": "For business" },
+  "steps": { "title": "How it works", "scan": "Scan the QR code", "login": "Sign in with your phone", "take": "Take items, close the door", "pay": "Pay with Payme or Click" },
+  "empty": { "title": "Nothing here yet", "text": "Data will show up here." },
+  "showcase": { "title": "Design system", "openDoor": "Open door", "doorDemo": "Door-open animation", "toast": "Show toast", "sheet": "Bottom sheet", "sheetText": "Sign-in and other actions will live here." }
+}

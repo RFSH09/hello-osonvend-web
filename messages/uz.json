@@ -1,0 +1,10 @@
+{
+  "meta": { "title": "Hello by Osonvend", "description": "Aqlli muzlatgich-do'kon. Skanerlang. Oling. Keting." },
+  "brand": { "name": "Hello", "tagline": "Skanerlang. Oling. Keting." },
+  "nav": { "home": "Bosh sahifa", "how": "Qanday ishlaydi", "business": "Biznes uchun", "locations": "Manzillar", "products": "Mahsulotlar", "about": "Biz haqimizda", "contact": "Aloqa" },
+  "common": { "language": "Til", "theme": "Mavzu", "support": "Yordam", "retry": "Qayta urinish", "close": "Yopish", "loading": "Yuklanmoqda…", "unit": "so'm" },
+  "hero": { "title": "Skanerlang. Oling. Keting.", "subtitle": "Hello — sun'iy intellektli muzlatgich-do'kon. Kassa ham, navbat ham yo'q.", "ctaFind": "Eng yaqin muzlatgich", "ctaBusiness": "Biznes uchun" },
+  "steps": { "title": "Qanday ishlaydi", "scan": "QR kodni skanerlang", "login": "Telefon raqam bilan kiring", "take": "Mahsulotni oling, eshikni yoping", "pay": "Payme yoki Click orqali to'lov" },
+  "empty": { "title": "Hozircha hech narsa yo'q", "text": "Bu yerda ma'lumotlar paydo bo'ladi." },
+  "showcase": { "title": "Dizayn tizimi", "openDoor": "Eshikni ochish", "doorDemo": "Eshik ochilish animatsiyasi", "toast": "Toast ko'rsatish", "sheet": "Pastki oyna", "sheetText": "Bu yerda kirish va boshqa amallar bo'ladi." }
+}
