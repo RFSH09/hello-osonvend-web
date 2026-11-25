@@ -28,6 +28,14 @@ All data access goes through `src/lib/api/index.ts`. Replace the function bodies
 `messages/uz.json` is the source for Uzbek; `npm run i18n:cyrl` regenerates `messages/uz-Cyrl.json` by transliteration (needs native review). ru/en are hand-written.
 
 ## Progress
-- [x] Design system, i18n, home, fridge page + unlock flow, business, products, locations, how-it-works, about
-- [ ] Account area (purchases, cards, tickets, settings)
-- [ ] Report-problem form, PWA, SEO (sitemap, schema.org), Playwright e2e, privacy/terms/contact pages
+- [x] Design system, i18n (uz, uz-Cyrl, ru, en), real brand colours (#33384B / #393C45 / #3ADC93) and logo
+- [x] Home with real hero photo, phone clip, step stills, demo video, gallery (client photos behind `showClientPhotos`)
+- [x] Fridge page + unlock flow (login sheet, door open, receipt, nothing taken, error), dev panel
+- [x] Account: overview, profile, cards (mock provider page, no card input), purchases + receipt, support tickets, loyalty (config flag), settings
+- [x] Business (lead form in hero), products (real photos with SVG fallback), locations (Leaflet map, list sync, mobile toggle), how-it-works, about, privacy/terms drafts
+- [x] Favicon + PWA manifest icons
+- [ ] Service worker / offline PWA, sitemap + schema.org, Playwright e2e, hreflang per page
+- [ ] Real Django endpoints (see `src/lib/api/` and `src/lib/account/api.ts`)
+
+## Performance (Lighthouse mobile, production build)
+Home 90-93, business 97, fridge 94, how-it-works 90, about 94, account 93. `/locations` varies (64-99) because the largest paint is a third-party OpenStreetMap tile.

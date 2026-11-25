@@ -1,15 +1,24 @@
-export type Category = "drinks" | "snacks" | "chocolate";
+export type Category = "drinks" | "snacks" | "chocolate" | "food";
+
+/** Text in the 4 site languages. */
+export type LocalizedText = { uz: string; "uz-Cyrl": string; ru: string; en: string };
 export type ProductKind = "bottle" | "can" | "pack" | "bar";
 
 export type Product = {
   id: string;
+  /** Photo file: /public/products/<slug>.webp */
+  slug: string;
   name: string;
+  /** Size / flavour line under the name, e.g. "500ml", "Olma". */
+  subtitle: LocalizedText;
   category: Category;
   kind: ProductKind;
   price: number; // so'm, integer
   color: string; // main colour
   accent: string; // label / stripe colour
   popular?: boolean;
+  /** 0 = best seller. */
+  popularRank?: number;
 };
 
 export type FridgeStatus = "available" | "low" | "offline";

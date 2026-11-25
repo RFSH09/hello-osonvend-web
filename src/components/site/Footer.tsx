@@ -4,6 +4,7 @@ import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { Link } from "@/i18n/navigation";
 import { config } from "@/config";
+import { BrandLogo } from "@/components/ui/BrandLogo";
 import { Logo } from "./bits";
 import { InstagramIcon, TelegramIcon, WhatsAppIcon } from "./icons";
 
@@ -23,12 +24,16 @@ export function Footer() {
   ];
 
   return (
-    <footer className="bg-navy text-white">
+    <footer className="bg-panel text-white">
       <div className="mx-auto grid w-full max-w-[1200px] gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.3fr_1fr_1.3fr]">
         <div className="flex flex-col gap-4">
           <Logo light />
           <p className="max-w-xs text-white/70">{t("footer.text")}</p>
           <p className="font-display font-bold text-accent">{t("brand.tagline")}</p>
+          <div className="flex items-center gap-2" aria-label={t("hero.payVia")}>
+            <BrandLogo brand="payme" onDark />
+            <BrandLogo brand="click" onDark />
+          </div>
         </div>
 
         <nav aria-label="Footer" className="flex flex-col gap-1">
@@ -59,7 +64,13 @@ export function Footer() {
 
       <div className="border-t border-white/10">
         <div className="mx-auto flex w-full max-w-[1200px] flex-wrap items-center justify-between gap-3 px-4 py-4 text-sm text-white/60 sm:px-6">
-          <span>© 2024–2026 OOO &quot;OSONVEND&quot;. {t("footer.rights")}</span>
+          <div className="flex flex-col gap-1">
+            <span>© 2024–2026 OOO &quot;OSONVEND&quot;. {t("footer.rights")}</span>
+            <span className="flex flex-wrap gap-x-4">
+              <Link href="/privacy" className="flex min-h-11 items-center underline hover:text-white">{t("footer.privacy")}</Link>
+              <Link href="/terms" className="flex min-h-11 items-center underline hover:text-white">{t("footer.terms")}</Link>
+            </span>
+          </div>
           <div className="flex items-center gap-2 text-white">
             <LanguageSwitcher />
             <ThemeToggle />

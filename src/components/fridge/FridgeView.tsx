@@ -8,6 +8,7 @@ import { Button, Card, ProductCard } from "@/components/ui/primitives";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Link } from "@/i18n/navigation";
 import { settleOrder } from "@/lib/api";
+import { recordPurchase } from "@/lib/account/api";
 import type { Fridge, Order, StockItem } from "@/lib/api/types";
 import { PRODUCT_BY_ID } from "@/lib/data/products";
 import { config } from "@/config";
@@ -67,12 +68,15 @@ export function FridgeView({
     if (flow.name !== "processing") return;
     const id = setTimeout(async () => {
       try {
-        dispatch({ type: "PAID", order: await settleOrder(fridge) });
+        const order = await settleOrder(fridge);
+        if (user) void recordPurchase(order, fridge.name).catch(() => {});
+        dispatch({ type: "PAID", order });
       } catch {
         dispatch({ type: "FAIL" });
       }
     }, 2500);
     return () => clearTimeout(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [flow.name, fridge]);
 
   const start = useCallback(() => dispatch({ type: "START" }), []);
@@ -87,7 +91,7 @@ export function FridgeView({
 
   return (
     <>
-      <div className="bg-navy text-white">
+      <div className="bg-panel text-white">
         <div className="mx-auto flex max-w-[1200px] flex-col gap-3 px-4 py-8 sm:px-6">
           <div className="flex flex-wrap items-center gap-3">
             <StatusBadge status={fridge.status} onDark />
@@ -98,7 +102,8 @@ export function FridgeView({
         </div>
       </div>
 
-      <main className="mx-auto w-full max-w-[1200px] px-4 pb-32 pt-8 sm:px-6">
+      <div className="relative">
+      <main className="mx-auto w-full max-w-[1200px] px-4 pb-10 pt-8 sm:px-6">
         {offline ? (
           <div className="flex flex-col gap-6">
             <Card className="border-brand-red/40 text-center">
@@ -122,9 +127,9 @@ export function FridgeView({
           <>
             <h2 className="mb-4 font-display text-2xl font-extrabold">{t("fridge.contents")}</h2>
             <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-5">
-              {items.map(({ product, qty }) => (
+              {items.map(({ product, qty }, idx) => (
                 <li key={product.id}>
-                  <ProductCard product={product} qty={qty} soldOutLabel={t("stock.soldOut")} lowLabel={t("stock.low")} unit={t("common.unit")} />
+                  <ProductCard priority={idx < 4} product={product} qty={qty} soldOutLabel={t("stock.soldOut")} lowLabel={t("stock.low")} availableLabel={t("stock.available")} unit={t("common.unit")} />
                 </li>
               ))}
             </ul>
@@ -149,12 +154,14 @@ export function FridgeView({
       </main>
 
       {!offline && flow.name === "idle" && (
-        <div className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-surface/95 p-3 backdrop-blur pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+        <div className="sticky inset-x-0 bottom-0 z-30 border-t border-border bg-surface/95 p-3 backdrop-blur pb-[max(0.75rem,env(safe-area-inset-bottom))]">
           <div className="mx-auto max-w-md">
             <Button variant="accent" size="lg" className="w-full" onClick={onOpen}>{t("fridge.open")}</Button>
           </div>
         </div>
       )}
+
+      </div>
 
       <FlowOverlay state={flow} onClosed={() => dispatch({ type: "DOOR_CLOSED" })} onReset={() => dispatch({ type: "RESET" })} />
 

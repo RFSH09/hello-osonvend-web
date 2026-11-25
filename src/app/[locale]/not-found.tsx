@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
-import { FridgeIllustration } from "@/components/art/FridgeIllustration";
+import { PhotoSlot } from "@/components/site/PhotoSlot";
+import { PHOTOS } from "@/lib/media";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 
 export default function NotFound() {
@@ -12,7 +13,7 @@ export default function NotFound() {
         <p className="text-lg text-muted">{t("text")}</p>
         <ButtonLink href="/" variant="accent" size="lg">{t("home")}</ButtonLink>
       </div>
-      <FridgeIllustration className="max-w-[300px]" />
+      <PhotoSlot src={PHOTOS.hallway} alt={t("photoAlt")} className="mx-auto aspect-[3/4] w-full max-w-[300px]" sizes="300px" />
     </main>
   );
 }

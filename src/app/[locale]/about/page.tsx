@@ -4,6 +4,8 @@ import { Section, SectionHeading } from "@/components/site/bits";
 import { Card } from "@/components/ui/primitives";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { config } from "@/config";
+import { PhotoSlot } from "@/components/site/PhotoSlot";
+import { isPhotoVisible, PHOTOS } from "@/lib/media";
 
 export default async function AboutPage({ params }: PageProps<"/[locale]/about">) {
   const { locale } = await params;
@@ -19,6 +21,12 @@ export default async function AboutPage({ params }: PageProps<"/[locale]/about">
       </section>
 
       <Section tone="white">
+        <div className={`mb-10 grid gap-4 ${isPhotoVisible("university") ? "sm:grid-cols-2" : "max-w-md"}`}>
+          <PhotoSlot src={PHOTOS.hallway} alt={t("media.alt.hallway")} className="aspect-[4/5] w-full" sizes="(max-width: 640px) 100vw, 560px" />
+          {isPhotoVisible("university") && (
+            <PhotoSlot src={PHOTOS.university} alt={t("media.alt.university")} className="aspect-[4/5] w-full" sizes="(max-width: 640px) 100vw, 560px" />
+          )}
+        </div>
         <Card className="max-w-3xl bg-background p-6">
           <h2 className="font-display text-xl font-bold">{t("aboutPage.aiTitle")}</h2>
           <p className="mt-2 text-muted">{t("aboutPage.aiText")}</p>

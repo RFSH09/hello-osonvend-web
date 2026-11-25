@@ -1,15 +1,21 @@
 "use client";
 
-import { animate, motion, useInView, useMotionValue, useTransform } from "framer-motion";
+import { animate, motion, useInView, useMotionValue, useReducedMotion, useTransform } from "framer-motion";
+import Image from "next/image";
 import { useEffect, useRef, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
+/** Real Hello wordmark. `light` = for dark backgrounds (white logo). ~36px tall. */
 export function Logo({ className, light }: { className?: string; light?: boolean }) {
   return (
-    <span className={cn("inline-flex items-center gap-1.5 font-display text-2xl font-extrabold tracking-tight", light ? "text-white" : "text-foreground", className)}>
-      Hello
-      <span className="size-2.5 rounded-full bg-accent" aria-hidden />
-    </span>
+    <Image
+      src={light ? "/brand/hello-logo-white.png" : "/brand/hello-logo-dark.png"}
+      alt="Hello"
+      width={72}
+      height={36}
+      priority
+      className={cn("h-9 w-auto self-start", className)}
+    />
   );
 }
 
@@ -32,7 +38,7 @@ export function Section({
         "py-16 sm:py-24",
         tone === "white" && "bg-surface",
         tone === "light" && "bg-background",
-        tone === "navy" && "bg-navy text-white",
+        tone === "navy" && "bg-panel text-white",
         className,
       )}
     >
@@ -60,13 +66,16 @@ export function SectionHeading({
   );
 }
 
+/** Short fade-up, once, early. Content is always fully visible (opacity never drops); motion is skipped for reduced-motion users. */
 export function Reveal({ children, delay = 0, className }: { children: ReactNode; delay?: number; className?: string }) {
+  const reduce = useReducedMotion();
+  if (reduce) return <div className={className}>{children}</div>;
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
+      initial={{ y: 14 }}
+      whileInView={{ y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.25, delay, ease: "easeOut" }}
     >
       {children}
@@ -74,23 +83,24 @@ export function Reveal({ children, delay = 0, className }: { children: ReactNode
   );
 }
 
-/** Count-up number. `group` adds space thousands separators. */
+/**
+ * Count-up number. The final value is rendered on the server (never "0+").
+ * When scrolled into view it replays a short roll-up from ~60% of the value.
+ */
 export function CountUp({ to, suffix = "", group = true }: { to: number; suffix?: string; group?: boolean }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true });
-  const value = useMotionValue(0);
+  const inView = useInView(ref, { once: true, amount: 0.5 });
+  const reduce = useReducedMotion();
+  const value = useMotionValue(to);
   const text = useTransform(value, (v) => {
     const n = String(Math.round(v));
     return (group ? n.replace(/\B(?=(\d{3})+(?!\d))/g, " ") : n) + suffix;
   });
   useEffect(() => {
-    if (!inView) return;
-    const c = animate(value, to, { duration: 1.4, ease: "easeOut" });
+    if (!inView || reduce) return;
+    value.set(to * 0.6);
+    const c = animate(value, to, { duration: 1.1, ease: "easeOut" });
     return () => c.stop();
-  }, [inView, to, value]);
-  return (
-    <>
-      <motion.span ref={ref}>{text}</motion.span>
-    </>
-  );
+  }, [inView, reduce, to, value]);
+  return <motion.span ref={ref}>{text}</motion.span>;
 }

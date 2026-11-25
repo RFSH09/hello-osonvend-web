@@ -1,13 +1,19 @@
-import { Clock, Receipt, ScanLine, ShieldCheck, Tag, Users, Video, Wifi, Ruler, Wrench, ChevronDown, UserX } from "lucide-react";
+import { ChevronDown, Clock, Receipt, ScanLine, ShieldCheck, Tag, Users, UserX, Video, Wifi, Ruler, Wrench } from "lucide-react";
+import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { FridgeIllustration } from "@/components/art/FridgeIllustration";
-import { StepArt, type StepKind } from "@/components/art/StepArt";
+import { DemoVideo } from "@/components/media/DemoVideo";
+import { Gallery } from "@/components/media/Gallery";
+import { HeroVideo } from "@/components/media/HeroVideo";
+import { StepVisual, type StepId } from "@/components/media/StepVisual";
 import { CountUp, Reveal, Section, SectionHeading } from "@/components/site/bits";
 import { ButtonLink } from "@/components/ui/ButtonLink";
+import { BrandLogo } from "@/components/ui/BrandLogo";
 import { Badge, Card, ProductCard } from "@/components/ui/primitives";
+import { config } from "@/config";
 import { PRODUCT_BY_ID, POPULAR_IDS } from "@/lib/data/products";
+import { PHOTOS } from "@/lib/media";
 
-const STEP_KEYS: [string, StepKind][] = [["s1", "scan"], ["s2", "login"], ["s3", "take"], ["s4", "pay"]];
+const STEPS: StepId[] = ["s1", "s2", "s3", "s4"];
 const WHY = [
   ["w1", Clock], ["w2", Users], ["w3", UserX], ["w4", Tag], ["w5", Video], ["w6", Receipt],
 ] as const;
@@ -20,9 +26,9 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
 
   return (
     <main>
-      {/* 1. Hero */}
+      {/* 1. Hero: real photo + phone clip */}
       <section className="relative overflow-hidden bg-gradient-to-b from-surface to-background">
-        <div className="pointer-events-none absolute -right-40 -top-40 size-[640px] rounded-full bg-accent/10 blur-3xl" />
+        <div className="pointer-events-none absolute -right-40 -top-40 size-[640px] rounded-full bg-accent/15 blur-3xl" />
         <div className="relative mx-auto grid w-full max-w-[1200px] items-center gap-10 px-4 py-12 sm:px-6 lg:grid-cols-2 lg:py-20">
           <div className="flex flex-col gap-6">
             <Badge tone="success" className="self-start"><ScanLine size={16} aria-hidden />{t("hero.badge")}</Badge>
@@ -34,51 +40,87 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
             </div>
             <ul className="flex flex-wrap items-center gap-2 pt-2 text-sm font-semibold">
               <li className="text-muted">{t("hero.payVia")}</li>
-              {["Payme", "Click", "24/7", t("hero.noCashier")].map((x) => (
+              <li><BrandLogo brand="payme" className="h-9" /></li>
+              <li><BrandLogo brand="click" className="h-9" /></li>
+              {["24/7", t("hero.noCashier")].map((x) => (
                 <li key={x} className="rounded-full border border-border bg-surface px-4 py-2">{x}</li>
               ))}
             </ul>
           </div>
-          <FridgeIllustration />
+
+          <div className="relative mx-auto w-full max-w-[440px] pb-10 pr-6 sm:pr-0">
+            <div className="relative aspect-[3/4] overflow-hidden rounded-[24px] shadow-2xl">
+              <Image
+                src={PHOTOS.hallway}
+                alt={t("media.alt.hallway")}
+                fill
+                priority
+                sizes="(max-width: 1024px) 90vw, 440px"
+                placeholder="blur"
+                className="object-cover"
+              />
+            </div>
+            <div className="absolute -bottom-2 -right-1 w-[42%] min-w-[130px] sm:-right-8">
+              <HeroVideo label={t("media.alt.heroVideo")} className="rotate-3" />
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* 2. Stats */}
-      <section className="bg-navy text-white">
+      {/* 2. Stats (numbers from config; final value rendered on the server) */}
+      <section className="bg-panel text-white">
         <ul className="mx-auto grid w-full max-w-[1200px] grid-cols-1 gap-8 px-4 py-12 text-center sm:grid-cols-3 sm:px-6">
-          <li><div className="font-display text-5xl font-extrabold text-accent"><CountUp to={25} suffix="+" /></div><div className="mt-1 text-white/75">{t("stats.fridges")}</div></li>
-          <li><div className="font-display text-5xl font-extrabold text-accent"><CountUp to={166000} suffix="+" /></div><div className="mt-1 text-white/75">{t("stats.orders")}</div></li>
-          <li><div className="font-display text-5xl font-extrabold text-accent"><CountUp to={2024} group={false} /></div><div className="mt-1 text-white/75">{t("stats.sinceLabel")}</div></li>
+          <li><div className="font-display text-5xl font-extrabold text-accent"><CountUp to={config.stats.fridges} suffix="+" /></div><div className="mt-1 text-white/75">{t("stats.fridges")}</div></li>
+          <li><div className="font-display text-5xl font-extrabold text-accent"><CountUp to={config.stats.orders} suffix="+" /></div><div className="mt-1 text-white/75">{t("stats.orders")}</div></li>
+          <li><div className="whitespace-nowrap font-display text-3xl font-extrabold text-accent sm:text-4xl lg:text-5xl">{t("stats.since", { year: config.stats.sinceYear })}</div><div className="mt-1 text-white/75">{t("stats.sinceLabel")}</div></li>
         </ul>
       </section>
 
-      {/* 3. How it works */}
+      {/* 3. How it works: real stills */}
       <Section tone="white">
         <SectionHeading title={t("steps.title")} subtitle={t("steps.subtitle")} center />
-        <ol className="relative grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
-          <div className="absolute left-[12%] right-[12%] top-[100px] hidden border-t-2 border-dashed border-accent/60 lg:block" aria-hidden />
-          {STEP_KEYS.map(([k, kind], i) => (
-            <li key={k}>
-              <Reveal delay={i * 0.08} className="relative flex flex-col items-center gap-4 text-center">
-                <StepArt kind={kind} className="w-full max-w-[220px]" />
-                <span className="-mt-2 flex size-12 items-center justify-center rounded-full bg-navy font-display text-xl font-extrabold text-white ring-4 ring-surface">{i + 1}</span>
-                <h3 className="font-display text-xl font-bold">{t(`steps.items.${k}.t`)}</h3>
-                <p className="text-muted">{t(`steps.items.${k}.d`)}</p>
+        <ol className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+          {STEPS.map((id, i) => (
+            <li key={id}>
+              <Reveal delay={i * 0.06} className="flex flex-col gap-4">
+                <div className="relative">
+                  <StepVisual id={id} />
+                  <span className="absolute -left-2 -top-2 flex size-12 items-center justify-center rounded-full bg-accent font-display text-xl font-extrabold text-navy shadow-lg ring-4 ring-surface">{i + 1}</span>
+                </div>
+                <h3 className="font-display text-xl font-bold">{t(`steps.items.${id}.t`)}</h3>
+                <p className="text-muted">{t(`steps.items.${id}.d`)}</p>
               </Reveal>
             </li>
           ))}
         </ol>
       </Section>
 
-      {/* 4. Why Hello */}
+      {/* 4. Video */}
       <Section tone="light">
+        <div className="grid items-center gap-10 lg:grid-cols-[1fr_auto]">
+          <div className="max-w-xl">
+            <SectionHeading title={t("media.video.title")} subtitle={t("media.video.text")} />
+            <ul className="flex flex-col gap-2 text-lg font-medium">
+              {(["b1", "b2", "b3"] as const).map((k) => (
+                <li key={k} className="flex items-center gap-3"><span className="size-2.5 rounded-full bg-accent" aria-hidden />{t(`media.video.${k}`)}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="mx-auto lg:mx-0">
+            <DemoVideo label={t("media.alt.demoVideo")} playLabel={t("media.video.play")} />
+          </div>
+        </div>
+      </Section>
+
+      {/* 5. Why Hello */}
+      <Section tone="white">
         <SectionHeading title={t("why.title")} subtitle={t("why.subtitle")} />
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {WHY.map(([k, Icon], i) => (
             <li key={k}>
               <Reveal delay={(i % 3) * 0.06} className="h-full">
-                <Card className="flex h-full flex-col gap-3 p-6">
-                  <span className="flex size-12 items-center justify-center rounded-2xl bg-accent/15 text-accent-strong"><Icon size={24} aria-hidden /></span>
+                <Card className="flex h-full flex-col gap-3 bg-background p-6 shadow-none">
+                  <span className="flex size-12 items-center justify-center rounded-2xl bg-accent/20 text-accent-strong"><Icon size={24} aria-hidden /></span>
                   <h3 className="font-display text-xl font-bold">{t(`why.items.${k}.t`)}</h3>
                   <p className="text-muted">{t(`why.items.${k}.d`)}</p>
                 </Card>
@@ -88,7 +130,13 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
         </ul>
       </Section>
 
-      {/* 5. Popular */}
+      {/* 6. Gallery */}
+      <Section tone="light">
+        <SectionHeading title={t("media.gallery.title")} subtitle={t("media.gallery.subtitle")} center />
+        <Gallery />
+      </Section>
+
+      {/* 7. Popular */}
       <Section tone="white">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <SectionHeading title={t("popular.title")} subtitle={t("popular.subtitle")} />
@@ -103,7 +151,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
         </ul>
       </Section>
 
-      {/* 6. For business */}
+      {/* 8. For business */}
       <Section tone="navy">
         <div className="grid items-center gap-10 lg:grid-cols-[1.2fr_1fr]">
           <div>
@@ -127,7 +175,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
         </div>
       </Section>
 
-      {/* 7. FAQ */}
+      {/* 9. FAQ */}
       <Section tone="light">
         <SectionHeading title={t("faq.title")} center />
         <div className="mx-auto flex max-w-3xl flex-col gap-3">

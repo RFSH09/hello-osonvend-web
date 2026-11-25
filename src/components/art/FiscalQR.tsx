@@ -15,9 +15,9 @@ export function FiscalQR({ seed, size = 112 }: { seed: string; size?: number }) 
     for (let x = 0; x < N; x++) if (!inFinder(x, y) && rnd() > 0.52) cells.push([x, y]);
   const finder = (ox: number, oy: number) => (
     <g key={`${ox}${oy}`}>
-      <rect x={ox} y={oy} width="7" height="7" fill="#0F1E3D" />
+      <rect x={ox} y={oy} width="7" height="7" fill="#33384B" />
       <rect x={ox + 1} y={oy + 1} width="5" height="5" fill="#fff" />
-      <rect x={ox + 2} y={oy + 2} width="3" height="3" fill="#0F1E3D" />
+      <rect x={ox + 2} y={oy + 2} width="3" height="3" fill="#33384B" />
     </g>
   );
   return (
@@ -27,7 +27,7 @@ export function FiscalQR({ seed, size = 112 }: { seed: string; size?: number }) 
       {finder(N - 7, 0)}
       {finder(0, N - 7)}
       {cells.map(([x, y]) => (
-        <rect key={`${x}-${y}`} x={x} y={y} width="1" height="1" fill="#0F1E3D" />
+        <rect key={`${x}-${y}`} x={x} y={y} width="1" height="1" fill="#33384B" />
       ))}
     </svg>
   );

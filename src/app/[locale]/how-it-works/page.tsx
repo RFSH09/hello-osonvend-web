@@ -1,10 +1,11 @@
 import { ChevronDown } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { StepArt, type StepKind } from "@/components/art/StepArt";
+import { DemoVideo } from "@/components/media/DemoVideo";
+import { StepVisual, type StepId } from "@/components/media/StepVisual";
 import { Section, SectionHeading } from "@/components/site/bits";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 
-const STEPS: [string, StepKind][] = [["s1", "scan"], ["s2", "login"], ["s3", "take"], ["s4", "pay"]];
+const STEPS: StepId[] = ["s1", "s2", "s3", "s4"];
 
 export default async function HowPage({ params }: PageProps<"/[locale]/how-it-works">) {
   const { locale } = await params;
@@ -20,14 +21,14 @@ export default async function HowPage({ params }: PageProps<"/[locale]/how-it-wo
       </section>
 
       <Section tone="white">
-        <ol className="flex flex-col gap-12">
-          {STEPS.map(([k, kind], i) => (
-            <li key={k} className={`grid items-center gap-6 md:grid-cols-2 ${i % 2 ? "md:[&>*:first-child]:order-2" : ""}`}>
-              <StepArt kind={kind} className="mx-auto w-full max-w-sm" />
+        <ol className="flex flex-col gap-14">
+          {STEPS.map((id, i) => (
+            <li key={id} className={`grid items-center gap-6 md:grid-cols-2 md:gap-12 ${i % 2 ? "md:[&>*:first-child]:order-2" : ""}`}>
+              <div className="mx-auto w-full max-w-[320px]"><StepVisual id={id} /></div>
               <div>
-                <span className="mb-3 flex size-11 items-center justify-center rounded-full bg-navy font-display text-lg font-extrabold text-white">{i + 1}</span>
-                <h2 className="font-display text-2xl font-bold">{t(`steps.items.${k}.t`)}</h2>
-                <p className="mt-2 text-lg text-muted">{t(`howPage.detail.${k}`)}</p>
+                <span className="mb-3 flex size-12 items-center justify-center rounded-full bg-accent font-display text-xl font-extrabold text-navy">{i + 1}</span>
+                <h2 className="font-display text-2xl font-bold">{t(`steps.items.${id}.t`)}</h2>
+                <p className="mt-2 text-lg text-muted">{t(`howPage.detail.${id}`)}</p>
               </div>
             </li>
           ))}
@@ -35,6 +36,17 @@ export default async function HowPage({ params }: PageProps<"/[locale]/how-it-wo
       </Section>
 
       <Section tone="light">
+        <div className="grid items-center gap-10 lg:grid-cols-[1fr_auto]">
+          <div className="max-w-xl">
+            <SectionHeading title={t("media.video.title")} subtitle={t("media.video.text")} />
+          </div>
+          <div className="mx-auto lg:mx-0">
+            <DemoVideo label={t("media.alt.demoVideo")} playLabel={t("media.video.play")} />
+          </div>
+        </div>
+      </Section>
+
+      <Section tone="white">
         <SectionHeading title={t("howPage.whatIfTitle")} center />
         <div className="mx-auto flex max-w-3xl flex-col gap-3">
           {(["q1", "q2", "q3"] as const).map((k) => (

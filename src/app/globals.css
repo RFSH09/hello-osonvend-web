@@ -2,38 +2,41 @@
 
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
+/* Brand colours taken from the real Hello logo */
 :root {
-  --navy: #0f1e3d;
-  --green: #22c55e;
+  --navy: #33384b; /* dark slate: logo text, machine body, primary */
+  --panel: #393c45; /* dark panel: dark sections, footer */
+  --green: #3adc93; /* Hello green: smile + dot */
   --light: #f5f7fa;
   --red: #ef4444;
   --amber: #f59e0b;
 
   --background: #f5f7fa;
   --surface: #ffffff;
-  --foreground: #0f1e3d;
-  --muted: #5b6785;
-  --border: #e3e8f0;
-  --primary: #0f1e3d;
+  --foreground: #33384b;
+  --muted: #5d6275;
+  --border: #e3e6ee;
+  --primary: #33384b;
   --on-primary: #ffffff;
-  --accent: #22c55e;
-  --accent-strong: #15803d; /* AA-contrast green for text on light */
+  --accent: #3adc93;
+  --accent-strong: #0f7a4d; /* AA-contrast green for text on light */
 }
 
 :root[data-theme="dark"] {
-  --background: #0a1429;
-  --surface: #12234a;
+  --background: #23262e;
+  --surface: #2e313b;
   --foreground: #f5f7fa;
-  --muted: #9aa7c4;
-  --border: #223660;
-  --primary: #22c55e;
-  --on-primary: #0f1e3d;
-  --accent: #22c55e;
-  --accent-strong: #4ade80;
+  --muted: #a4a9ba;
+  --border: #454957;
+  --primary: #3adc93;
+  --on-primary: #33384b;
+  --accent: #3adc93;
+  --accent-strong: #3adc93;
 }
 
 @theme inline {
   --color-navy: var(--navy);
+  --color-panel: var(--panel);
   --color-brand-green: var(--green);
   --color-brand-red: var(--red);
   --color-brand-amber: var(--amber);
@@ -67,4 +70,8 @@ body {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+@media print {
+  body { background: #fff; }
 }

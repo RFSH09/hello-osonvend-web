@@ -11,7 +11,7 @@ export function ProductArt({
   const { kind, color, accent } = product;
   return (
     <svg viewBox="0 0 120 120" className={className} aria-hidden focusable="false">
-      <ellipse cx="60" cy="110" rx="30" ry="5" fill="#0F1E3D" opacity="0.12" />
+      <ellipse cx="60" cy="110" rx="30" ry="5" fill="#33384B" opacity="0.12" />
       {kind === "bottle" && (
         <g>
           <rect x="52" y="8" width="16" height="9" rx="2" fill={accent} />

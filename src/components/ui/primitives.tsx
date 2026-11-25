@@ -4,7 +4,8 @@ import type { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 import { formatPrice } from "@/lib/format";
 import type { Product } from "@/lib/api/types";
-import { ProductArt } from "@/components/art/ProductArt";
+import { ProductVisual } from "@/components/art/ProductVisual";
+import { useLocale } from "next-intl";
 
 export const buttonStyles = cva(
   "inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-6 text-base font-semibold transition-colors duration-200 disabled:opacity-50 disabled:pointer-events-none",
@@ -115,29 +116,43 @@ export function ProductCard({
   qty,
   soldOutLabel,
   lowLabel,
+  availableLabel,
   unit,
   className,
+  priority,
 }: {
   product: Product;
-  qty?: number; // undefined = no stock info (catalogue)
+  qty?: number; // undefined = catalogue (no stock info)
   soldOutLabel: string;
   lowLabel: string;
+  availableLabel?: string;
   unit?: string;
   className?: string;
+  /** Above-the-fold cards: load the photo eagerly (LCP). */
+  priority?: boolean;
 }) {
+  const locale = useLocale() as keyof Product["subtitle"];
+  const subtitle = product.subtitle?.[locale] ?? product.subtitle?.uz;
   const soldOut = qty !== undefined && qty <= 0;
   const low = qty !== undefined && qty > 0 && qty <= 2;
+  const ok = qty !== undefined && qty > 2;
   return (
     <Card className={cn("flex h-full flex-col gap-2 p-3 sm:p-4", className)}>
-      <div className="relative flex aspect-square items-center justify-center rounded-xl bg-background">
-        <ProductArt product={product} className={cn("size-4/5", soldOut && "opacity-40 grayscale")} />
-        {(soldOut || low) && (
-          <Badge tone={soldOut ? "danger" : "warning"} className="absolute left-2 top-2 px-2 py-0.5 text-xs">
-            {soldOut ? soldOutLabel : lowLabel}
+      <div className="relative flex aspect-square items-center justify-center rounded-xl bg-white">
+        <ProductVisual product={product} priority={priority} className={cn("size-[85%]", soldOut && "opacity-40 grayscale")} />
+        {qty !== undefined && (
+          <Badge
+            tone={soldOut ? "danger" : low ? "warning" : "success"}
+            className={cn("absolute left-2 top-2 px-2 py-0.5 text-xs", ok && "bg-green-100")}
+          >
+            {soldOut ? soldOutLabel : low ? lowLabel : availableLabel}
           </Badge>
         )}
       </div>
-      <div className="min-h-10 text-sm font-semibold leading-tight sm:text-base">{product.name}</div>
+      <div className="flex min-h-11 flex-col gap-0.5">
+        <span className="text-sm font-semibold leading-tight sm:text-base">{product.name}</span>
+        {subtitle && <span className="text-xs text-muted sm:text-sm">{subtitle}</span>}
+      </div>
       {soldOut ? (
         <span className="font-display font-bold text-muted">{soldOutLabel}</span>
       ) : (

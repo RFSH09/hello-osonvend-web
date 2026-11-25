@@ -4,8 +4,17 @@ export const config = {
   freeForLocation: false,
   /** Open item: permission to show client names/logos. Hidden by default. */
   showPartnerLogos: false,
-  /** Loyalty program (account area, later). */
-  loyalty: false,
+  /**
+   * Photos showing a client (Mikrokreditbank, Kapitalbank, Tashkent Perfect University).
+   * Keep false until each client has given written permission. Only fridge-hallway shows when false.
+   */
+  showClientPhotos: false,
+  /** Public numbers shown on the home page. */
+  stats: { fridges: 25, orders: 166000, sinceYear: 2024 },
+  /** Loyalty: "every Nth purchase is discounted". Flip `enabled` to hide the whole section. */
+  loyalty: { enabled: true, every: 10, discountPercent: 10 },
+  /** /public/brands/payme.svg + click.svg are neutral PLACEHOLDER wordmarks: replace with the official logo files. */
+  brandLogos: { payme: true, click: true },
   contact: {
     phone: "+998 94 403 16 11",
     phoneHref: "tel:+998944031611",

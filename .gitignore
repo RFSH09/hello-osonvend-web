@@ -44,3 +44,12 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 docs/screenshots/
+
+# downloaded source images
+scripts/.cache/
+
+# Client-branded photos: need written permission before publishing (repo is public).
+# Remove these lines once Mikrokreditbank, Kapitalbank and Tashkent Perfect University approve.
+public/photos/fridge-office-lobby.*
+public/photos/fridge-bank-branch.*
+public/photos/fridge-university-top.*

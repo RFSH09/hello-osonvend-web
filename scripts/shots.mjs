@@ -1,80 +1,185 @@
-// Takes review screenshots against a running dev server: node scripts/shots.mjs
+// Review screenshots against a running dev server:  node scripts/shots.mjs
+// Output: docs/screenshots/desktop (1440px) and docs/screenshots/mobile (390px)
 import { chromium } from "playwright";
+import { mkdirSync } from "node:fs";
 
 const BASE = process.env.BASE ?? "http://localhost:3000";
-const out = "docs/screenshots";
+const OUT = "docs/screenshots";
+mkdirSync(`${OUT}/desktop`, { recursive: true });
+mkdirSync(`${OUT}/mobile`, { recursive: true });
+
+const PUBLIC = [
+  ["home", "/uz"],
+  ["how-it-works", "/uz/how-it-works"],
+  ["products", "/uz/products"],
+  ["locations", "/uz/locations"],
+  ["business", "/uz/business"],
+  ["about", "/uz/about"],
+  ["privacy", "/uz/privacy"],
+  ["terms", "/uz/terms"],
+  ["404", "/uz/xyz"],
+  ["fridge", "/uz/refrigerator/W0016188"],
+  ["fridge-offline", "/uz/refrigerator/W0016193"],
+  ["fridge-notfound", "/uz/refrigerator/nope"],
+];
+const ACCOUNT = [
+  ["account-overview", "/uz/account"],
+  ["account-profile", "/uz/account/profile"],
+  ["account-cards", "/uz/account/cards"],
+  ["account-purchases", "/uz/account/purchases"],
+  ["account-purchase-detail", "/uz/account/purchases/P1024"],
+  ["account-support", "/uz/account/support"],
+  ["account-support-new", "/uz/account/support/new?purchase=P1024"],
+  ["account-loyalty", "/uz/account/loyalty"],
+  ["account-settings", "/uz/account/settings"],
+  ["provider-test-payme", "/uz/provider-test/payme"],
+];
+
 const browser = await chromium.launch();
+const problems = [];
 
-async function shot(page, name, full = true) {
+async function settle(page, attempt = 0) {
+  try {
+    await settleOnce(page);
+  } catch (e) {
+    if (attempt > 2) throw e;
+    await page.waitForTimeout(1500); // dev HMR reload mid-capture: try again
+    return settle(page, attempt + 1);
+  }
+}
+
+async function settleOnce(page) {
+  await page.waitForLoadState("networkidle");
+  await page.waitForTimeout(1600);
+  // scroll through so lazy/in-view effects run, then back to top
+  await page.evaluate(async () => {
+    for (let y = 0; y < document.body.scrollHeight; y += 500) {
+      window.scrollTo(0, y);
+      await new Promise((r) => setTimeout(r, 60));
+    }
+    window.scrollTo(0, 0);
+  });
   await page.waitForTimeout(700);
-  await page.screenshot({ path: `${out}/${name}.png`, fullPage: full });
-  console.log("saved", name);
 }
 
-// Desktop
+async function run(kind, viewport, mobile) {
+  const ctx = await browser.newContext({
+    viewport,
+    deviceScaleFactor: mobile ? 2 : 1,
+    isMobile: mobile,
+    hasTouch: mobile,
+  });
+  const logged = await browser.newContext({
+    viewport,
+    deviceScaleFactor: mobile ? 2 : 1,
+    isMobile: mobile,
+    hasTouch: mobile,
+  });
+  await logged.addInitScript(() => localStorage.setItem("hello.session", JSON.stringify({ phone: "944031611" })));
+
+  for (const [name, path] of [...PUBLIC.map((p) => [...p, ctx]), ...ACCOUNT.map((p) => [...p, logged])].map(([n, p, c]) => [n, p, c])) {
+    const c = ACCOUNT.some((a) => a[0] === name) ? logged : ctx;
+    const page = await c.newPage();
+    const errs = [];
+    page.on("pageerror", (e) => errs.push(e.message.slice(0, 200)));
+    page.on("console", (m) => {
+      if (m.type() === "error" && !/Failed to load resource|404/.test(m.text())) errs.push(m.text().slice(0, 200));
+    });
+    await page.goto(BASE + path, { waitUntil: "domcontentloaded" });
+    await settle(page);
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+    if (overflow > 0) problems.push(`${kind} ${name}: horizontal overflow ${overflow}px`);
+    if (errs.length) problems.push(`${kind} ${name}: console errors: ${errs.join(" | ")}`);
+    await page.screenshot({ path: `${OUT}/${kind}/${name}.png`, fullPage: true });
+    console.log(kind, name);
+    await page.close();
+  }
+
+  // interactive account screens
+  const page = await logged.newPage();
+  await page.goto(BASE + "/uz/account/cards", { waitUntil: "domcontentloaded" });
+  await settle(page);
+  await page.getByRole("button", { name: "Karta qo'shish" }).first().click();
+  await page.waitForTimeout(500);
+  await page.screenshot({ path: `${OUT}/${kind}/account-cards-add-sheet.png` });
+  await page.keyboard.press("Escape");
+  await page.getByRole("button", { name: "O'chirish" }).first().click();
+  await page.waitForTimeout(500);
+  await page.screenshot({ path: `${OUT}/${kind}/account-cards-remove-sheet.png` });
+  await page.keyboard.press("Escape");
+
+  await page.goto(BASE + "/uz/account/profile", { waitUntil: "domcontentloaded" });
+  await settle(page);
+  await page.getByRole("button", { name: "Raqamni o'zgartirish" }).first().click();
+  await page.waitForTimeout(500);
+  await page.screenshot({ path: `${OUT}/${kind}/account-profile-change-phone.png` });
+  await page.keyboard.press("Escape");
+
+  await page.goto(BASE + "/uz/account/settings", { waitUntil: "domcontentloaded" });
+  await settle(page);
+  await page.getByRole("button", { name: "Hisobni o'chirish" }).first().click();
+  await page.waitForTimeout(500);
+  await page.screenshot({ path: `${OUT}/${kind}/account-settings-delete-sheet.png` });
+  await page.close();
+
+  if (!mobile) {
+    const p = await logged.newPage();
+    await p.goto(BASE + "/uz", { waitUntil: "domcontentloaded" });
+    await p.waitForTimeout(1500);
+    await p.getByRole("button", { name: "Hisob" }).click();
+    await p.waitForTimeout(300);
+    await p.screenshot({ path: `${OUT}/desktop/header-avatar-menu.png`, clip: { x: 0, y: 0, width: 1440, height: 420 } });
+    await p.close();
+  } else {
+    const p = await logged.newPage();
+    await p.goto(BASE + "/uz", { waitUntil: "domcontentloaded" });
+    await p.waitForTimeout(1500);
+    await p.getByRole("button", { name: "Menyu" }).click();
+    await p.waitForTimeout(300);
+    await p.screenshot({ path: `${OUT}/mobile/header-mobile-menu.png` });
+    await p.close();
+  }
+
+  // locations interactions (desktop): list click flies the map, pin click scrolls the list
+  if (!mobile) {
+    const p = await ctx.newPage();
+    await p.goto(BASE + "/uz/locations", { waitUntil: "domcontentloaded" });
+    await settle(p);
+    await p.locator("ul button[aria-label=\"Business Center — Chilonzor\"]").click();
+    await p.waitForTimeout(1500);
+    await p.screenshot({ path: `${OUT}/desktop/locations-selected.png` });
+    await p.close();
+  } else {
+    const p = await ctx.newPage();
+    await p.goto(BASE + "/uz/locations", { waitUntil: "domcontentloaded" });
+    await settle(p);
+    await p.getByRole("button", { name: "Ro'yxat" }).click();
+    await p.waitForTimeout(400);
+    await p.screenshot({ path: `${OUT}/mobile/locations-list-view.png` });
+    await p.close();
+  }
+
+  await ctx.close();
+  await logged.close();
+}
+
+await run("desktop", { width: 1440, height: 900 }, false);
+await run("mobile", { width: 390, height: 844 }, true);
+
+// 360px overflow sweep (smallest target width)
 {
-  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
-  const page = await ctx.newPage();
-  for (const [name, path] of [["home-desktop", "/uz"], ["business-desktop", "/uz/business"], ["products-desktop", "/uz/products"], ["locations-desktop", "/uz/locations"], ["how-desktop", "/uz/how-it-works"], ["about-desktop", "/uz/about"], ["notfound-desktop", "/uz/xyz"]]) {
-    await page.goto(BASE + path, { waitUntil: "networkidle" });
-    await page.waitForTimeout(1500);
-    if (name === "home-desktop") await page.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += 500) { window.scrollTo(0, y); await new Promise(r => setTimeout(r, 120)); } window.scrollTo(0, 0); await new Promise(r => setTimeout(r, 1800)); });
-    await shot(page, name);
+  const ctx = await browser.newContext({ viewport: { width: 360, height: 740 }, isMobile: true, hasTouch: true });
+  await ctx.addInitScript(() => localStorage.setItem("hello.session", JSON.stringify({ phone: "944031611" })));
+  for (const [name, path] of [...PUBLIC, ...ACCOUNT]) {
+    const page = await ctx.newPage();
+    await page.goto(BASE + path, { waitUntil: "domcontentloaded" });
+    await settle(page);
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+    if (overflow > 0) problems.push(`360px ${name}: horizontal overflow ${overflow}px`);
+    await page.close();
   }
   await ctx.close();
 }
 
-// Mobile 360px
-{
-  const ctx = await browser.newContext({ viewport: { width: 360, height: 740 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
-  const page = await ctx.newPage();
-  await page.goto(BASE + "/uz", { waitUntil: "networkidle" });
-  await page.waitForTimeout(1500);
-  await page.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += 400) { window.scrollTo(0, y); await new Promise(r => setTimeout(r, 120)); } window.scrollTo(0, 0); });
-  await shot(page, "home-mobile");
-  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
-  console.log("home horizontal overflow px:", overflow);
-
-  await page.goto(BASE + "/uz/refrigerator/W0016188", { waitUntil: "networkidle" });
-  await shot(page, "fridge-idle", false);
-  await shot(page, "fridge-idle-full");
-  // real flow: tap open -> login sheet
-  await page.getByRole("button", { name: "Eshikni ochish" }).click();
-  await page.waitForTimeout(500);
-  await page.screenshot({ path: `${out}/fridge-login-phone.png` });
-  await page.getByPlaceholder("90 123 45 67").fill("944031611");
-  await page.getByRole("button", { name: "Kod yuborish" }).click();
-  await page.waitForTimeout(900);
-  await page.screenshot({ path: `${out}/fridge-login-code.png` });
-  await page.keyboard.type("123456");
-  await page.waitForTimeout(800);
-  await page.screenshot({ path: `${out}/fridge-state-unlocking.png` });
-  await page.waitForSelector("text=ESHIK OCHIQ", { timeout: 6000 });
-  await page.waitForTimeout(1500);
-  await page.screenshot({ path: `${out}/fridge-state-door_open.png` });
-  await page.getByRole("button", { name: "Eshikni yopdim" }).click();
-  await page.waitForTimeout(600);
-  await page.screenshot({ path: `${out}/fridge-state-processing.png` });
-  await page.waitForSelector("text=Jami", { timeout: 8000 });
-  await page.waitForTimeout(500);
-  await page.screenshot({ path: `${out}/fridge-state-receipt.png`, fullPage: false });
-
-  // dev panel jumps for the other states
-  for (const st of ["nothing_taken", "error"]) {
-    await page.goto(BASE + "/uz/refrigerator/W0016188", { waitUntil: "networkidle" });
-    await page.getByRole("button", { name: /^DEV/ }).click();
-    await page.getByRole("button", { name: st, exact: true }).click();
-    await page.waitForTimeout(400);
-    await page.screenshot({ path: `${out}/fridge-state-${st}.png` });
-  }
-  await page.goto(BASE + "/uz/refrigerator/W0016193", { waitUntil: "networkidle" });
-  await shot(page, "fridge-offline", false);
-  await page.goto(BASE + "/uz/refrigerator/nope", { waitUntil: "networkidle" });
-  await shot(page, "fridge-notfound", false);
-  for (const p of ["/uz/business", "/uz/products", "/uz/locations", "/uz/how-it-works", "/uz/about"]) {
-    await page.goto(BASE + p, { waitUntil: "networkidle" });
-    console.log(p, "overflow px:", await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth));
-  }
-  await ctx.close();
-}
 await browser.close();
+console.log(problems.length ? "\nPROBLEMS:\n" + problems.join("\n") : "\nNo overflow / console problems found.");

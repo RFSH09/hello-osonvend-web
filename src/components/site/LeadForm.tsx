@@ -10,7 +10,7 @@ import { formatNational, isCompletePhone, nationalDigits } from "@/lib/phone";
 const TYPES = ["office", "university", "clinic", "center", "factory", "other"] as const;
 const field = "min-h-12 w-full rounded-xl border border-border bg-background px-4 outline-none focus:border-accent";
 
-export function LeadForm() {
+export function LeadForm({ compact }: { compact?: boolean }) {
   const t = useTranslations("biz.form");
   const tt = useTranslations("biz.types");
   const [phone, setPhone] = useState("");
@@ -49,7 +49,7 @@ export function LeadForm() {
     );
 
   return (
-    <Card className="p-6 sm:p-8">
+    <Card className={compact ? "p-5 shadow-xl sm:p-6" : "p-6 sm:p-8"}>
       <form onSubmit={onSubmit} className="grid gap-4 sm:grid-cols-2" noValidate>
         <label className="flex flex-col gap-1.5 font-medium">{t("company")}
           <input name="company" required autoComplete="organization" className={field} />

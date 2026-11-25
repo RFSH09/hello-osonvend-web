@@ -3,7 +3,7 @@
 import { Download } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { FiscalQR } from "@/components/art/FiscalQR";
-import { ProductArt } from "@/components/art/ProductArt";
+import { ProductVisual } from "@/components/art/ProductVisual";
 import { Button, Card } from "@/components/ui/primitives";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { config } from "@/config";
@@ -25,7 +25,7 @@ export function Receipt({ order, onDone }: { order: Order; onDone: () => void })
             const p = PRODUCT_BY_ID.get(i.productId)!;
             return (
               <li key={i.productId} className="flex items-center gap-3 py-3 first:pt-0">
-                <div className="size-12 shrink-0 rounded-xl bg-background p-1"><ProductArt product={p} className="size-full" /></div>
+                <div className="size-12 shrink-0 rounded-xl bg-white p-1 ring-1 ring-border"><ProductVisual product={p} className="size-full" sizes="48px" /></div>
                 <div className="flex-1">
                   <div className="font-semibold">{p.name}</div>
                   <div className="text-sm text-muted">{t("receipt.qty", { n: i.qty })}</div>

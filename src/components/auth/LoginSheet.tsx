@@ -118,7 +118,7 @@ export function LoginSheet({
             </div>
           </label>
           <label className="flex min-h-11 items-center gap-3">
-            <input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} className="size-5 accent-[#22C55E]" />
+            <input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} className="size-5 accent-[#3ADC93]" />
             {t("login.remember")}
           </label>
           {error && <p role="alert" className="text-sm font-medium text-brand-red">{error}</p>}

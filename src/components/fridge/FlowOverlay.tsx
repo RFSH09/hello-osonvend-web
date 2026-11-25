@@ -50,7 +50,7 @@ export function FlowOverlay({
 
   switch (state.name) {
     case "unlocking":
-      return shell("bg-navy text-white", (
+      return shell("bg-panel text-white", (
         <>
           <Loader2 size={56} className="animate-spin text-accent" aria-hidden />
           <h1 className="font-display text-3xl font-extrabold">{t("flow.unlocking")}</h1>
@@ -67,7 +67,7 @@ export function FlowOverlay({
         </>
       ));
     case "processing":
-      return shell("bg-navy text-white", (
+      return shell("bg-panel text-white", (
         <>
           <Loader2 size={56} className="animate-spin text-accent" aria-hidden />
           <h1 className="font-display text-3xl font-extrabold">{t("flow.processing")}</h1>

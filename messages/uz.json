@@ -1,13 +1,66 @@
 {
-  "meta": { "title": "Hello — aqlli muzlatgich-do'kon", "description": "Hello: sun'iy intellektli muzlatgich-do'kon. Skanerlang. Oling. Keting. Kassasiz, navbatsiz." },
-  "brand": { "name": "Hello", "tagline": "Skanerlang. Oling. Keting." },
-  "nav": { "home": "Bosh sahifa", "how": "Qanday ishlaydi", "products": "Mahsulotlar", "locations": "Manzillar", "business": "Biznes uchun", "about": "Biz haqimizda", "login": "Kirish", "logout": "Chiqish", "menu": "Menyu" },
-  "common": { "language": "Til", "theme": "Mavzu", "support": "Yordam", "retry": "Qayta urinish", "close": "Yopish", "loading": "Yuklanmoqda…", "unit": "so'm", "all": "Hammasi" },
-  "status": { "available": "Mavjud", "low": "Kam qoldi", "offline": "Ishlamayapti" },
-  "stock": { "soldOut": "Tugagan", "low": "Kam qoldi" },
-  "categories": { "drinks": "Ichimliklar", "snacks": "Snaklar", "chocolate": "Shokoladlar" },
-  "districts": { "yunusobod": "Yunusobod", "mirzoUlugbek": "Mirzo Ulug'bek", "chilonzor": "Chilonzor", "shayxontohur": "Shayxontohur", "mirobod": "Mirobod", "yakkasaroy": "Yakkasaroy", "olmazor": "Olmazor", "sergeli": "Sergeli" },
-  "access": { "public": "Hamma uchun", "staff": "Xodimlar uchun" },
+  "meta": {
+    "title": "Hello — aqlli muzlatgich-do'kon",
+    "description": "Hello: sun'iy intellektli muzlatgich-do'kon. Skanerlang. Oling. Keting. Kassasiz, navbatsiz."
+  },
+  "brand": {
+    "name": "Hello",
+    "tagline": "Skanerlang. Oling. Keting."
+  },
+  "nav": {
+    "home": "Bosh sahifa",
+    "how": "Qanday ishlaydi",
+    "products": "Mahsulotlar",
+    "locations": "Manzillar",
+    "business": "Biznes uchun",
+    "about": "Biz haqimizda",
+    "login": "Kirish",
+    "logout": "Chiqish",
+    "menu": "Menyu"
+  },
+  "common": {
+    "language": "Til",
+    "theme": "Mavzu",
+    "support": "Yordam",
+    "retry": "Qayta urinish",
+    "close": "Yopish",
+    "loading": "Yuklanmoqda…",
+    "unit": "so'm",
+    "all": "Hammasi",
+    "zoom": "kattalashtirish",
+    "prev": "Oldingisi",
+    "next": "Keyingisi"
+  },
+  "status": {
+    "available": "Mavjud",
+    "low": "Kam qoldi",
+    "offline": "Ishlamayapti"
+  },
+  "stock": {
+    "soldOut": "Tugagan",
+    "low": "Kam qoldi",
+    "available": "Mavjud"
+  },
+  "categories": {
+    "drinks": "Ichimliklar",
+    "snacks": "Snaklar",
+    "chocolate": "Shokoladlar",
+    "food": "Taom va sut"
+  },
+  "districts": {
+    "yunusobod": "Yunusobod",
+    "mirzoUlugbek": "Mirzo Ulug'bek",
+    "chilonzor": "Chilonzor",
+    "shayxontohur": "Shayxontohur",
+    "mirobod": "Mirobod",
+    "yakkasaroy": "Yakkasaroy",
+    "olmazor": "Olmazor",
+    "sergeli": "Sergeli"
+  },
+  "access": {
+    "public": "Hamma uchun",
+    "staff": "Xodimlar uchun"
+  },
   "hero": {
     "badge": "AI muzlatgich-do'kon",
     "title": "Skanerlang. Oling. Keting.",
@@ -17,47 +70,107 @@
     "payVia": "To'lov:",
     "noCashier": "Kassasiz"
   },
-  "stats": { "fridges": "muzlatgich", "orders": "xarid", "sinceLabel": "yildan beri" },
+  "stats": {
+    "fridges": "muzlatgich",
+    "orders": "xarid",
+    "sinceLabel": "Toshkent ofislarida",
+    "since": "{year}-yildan beri"
+  },
   "steps": {
     "title": "Qanday ishlaydi",
     "subtitle": "To'rt oddiy qadam — va siz ketdingiz.",
     "items": {
-      "s1": { "t": "QR kodni skanerlang", "d": "Muzlatgichdagi QR kodni telefon kamerasi bilan skanerlang." },
-      "s2": { "t": "Telefon raqam bilan kiring", "d": "Raqamingizni kiriting va SMS kodni tasdiqlang. Dastur o'rnatish shart emas." },
-      "s3": { "t": "Oling va eshikni yoping", "d": "Eshik ochiladi. Kerakli narsani oling va eshikni yoping." },
-      "s4": { "t": "To'lov avtomatik", "d": "Kameralar tanlangan mahsulotlarni aniqlaydi, to'lov Payme yoki Click orqali yechiladi." }
+      "s1": {
+        "t": "QR kodni skanerlang",
+        "d": "Muzlatgichdagi QR kodni telefon kamerasi bilan skanerlang."
+      },
+      "s2": {
+        "t": "Telefon raqam bilan kiring",
+        "d": "Raqamingizni kiriting va SMS kodni tasdiqlang. Dastur o'rnatish shart emas."
+      },
+      "s3": {
+        "t": "Oling va eshikni yoping",
+        "d": "Eshik ochiladi. Kerakli narsani oling va eshikni yoping."
+      },
+      "s4": {
+        "t": "To'lov avtomatik",
+        "d": "Kameralar tanlangan mahsulotlarni aniqlaydi, to'lov Payme yoki Click orqali yechiladi."
+      }
     }
   },
   "why": {
     "title": "Nega Hello",
     "subtitle": "Tez, qulay va shaffof — har bir xaridda.",
     "items": {
-      "w1": { "t": "24/7 ishlaydi", "d": "Muzlatgich kechayu kunduz ochiq. Tanaffus ham, yopilish vaqti ham yo'q." },
-      "w2": { "t": "Navbat yo'q", "d": "Kassa oldida turib qolmaysiz. Oldingiz — ketdingiz." },
-      "w3": { "t": "Kassir kerak emas", "d": "Hammasini kameralar va sun'iy intellekt hal qiladi." },
-      "w4": { "t": "Adolatli narx", "d": "Do'kondagidek narxlar. Yashirin qo'shimcha to'lovlar yo'q." },
-      "w5": { "t": "Har xarid videoda", "d": "Har bir xarid videoga olinadi. Xato bo'lsa, videoni tekshiramiz." },
-      "w6": { "t": "Fiskal chek", "d": "Har bir xarid uchun rasmiy fiskal chek beriladi." }
+      "w1": {
+        "t": "24/7 ishlaydi",
+        "d": "Muzlatgich kechayu kunduz ochiq. Tanaffus ham, yopilish vaqti ham yo'q."
+      },
+      "w2": {
+        "t": "Navbat yo'q",
+        "d": "Kassa oldida turib qolmaysiz. Oldingiz — ketdingiz."
+      },
+      "w3": {
+        "t": "Kassir kerak emas",
+        "d": "Hammasini kameralar va sun'iy intellekt hal qiladi."
+      },
+      "w4": {
+        "t": "Adolatli narx",
+        "d": "Do'kondagidek narxlar. Yashirin qo'shimcha to'lovlar yo'q."
+      },
+      "w5": {
+        "t": "Har xarid videoda",
+        "d": "Har bir xarid videoga olinadi. Xato bo'lsa, videoni tekshiramiz."
+      },
+      "w6": {
+        "t": "Fiskal chek",
+        "d": "Har bir xarid uchun rasmiy fiskal chek beriladi."
+      }
     }
   },
-  "popular": { "title": "Mashhur mahsulotlar", "subtitle": "Eng ko'p olinadigan mahsulotlar.", "all": "Barcha mahsulotlar" },
+  "popular": {
+    "title": "Mashhur mahsulotlar",
+    "subtitle": "Eng ko'p olinadigan mahsulotlar.",
+    "all": "Barcha mahsulotlar"
+  },
   "bizHome": {
     "title": "Ofisingiz uchun Hello",
     "text": "Xodimlaringiz yoki mehmonlaringiz uchun qulay, doim to'ldirilgan muzlatgich. O'rnatish va xizmat ko'rsatish bizdan.",
     "cta": "Hamkor bo'lish",
-    "m1v": "<1 m²", "m1l": "Kam joy egallaydi",
-    "m2v": "1 kunda", "m2l": "O'rnatiladi",
-    "m3v": "Onlayn", "m3l": "Monitoring"
+    "m1v": "<1 m²",
+    "m1l": "Kam joy egallaydi",
+    "m2v": "1 kunda",
+    "m2l": "O'rnatiladi",
+    "m3v": "Onlayn",
+    "m3l": "Monitoring"
   },
   "faq": {
     "title": "Ko'p so'raladigan savollar",
     "items": {
-      "q1": { "q": "Dastur yuklab olish kerakmi?", "a": "Yo'q. QR kodni skanerlang va brauzerda telefon raqamingiz bilan kiring." },
-      "q2": { "q": "To'lov qanday amalga oshadi?", "a": "Payme yoki Click kartangiz orqali. Karta ulash to'lov provayderining xavfsiz sahifasida bajariladi." },
-      "q3": { "q": "Agar sun'iy intellekt xato qilsa-chi?", "a": "Har bir xarid videoga olinadi. «Xarid noto'g'ri?» tugmasini bosing — videoni tekshirib, 24 soat ichida javob beramiz." },
-      "q4": { "q": "Eshik ochilmasa nima qilish kerak?", "a": "Sahifani yangilab, qayta urinib ko'ring. Ochilmasa, yordam tugmasi orqali Telegram yoki telefon orqali yozing — pul yechilmaydi." },
-      "q5": { "q": "Chek olamanmi?", "a": "Ha. Har bir xarid uchun fiskal chek chiqariladi va hisobingizda saqlanadi." },
-      "q6": { "q": "Ofisimizga muzlatgich qo'ydirish mumkinmi?", "a": "Ha. «Biznes uchun» sahifasida so'rov qoldiring, biz siz bilan bog'lanamiz." }
+      "q1": {
+        "q": "Dastur yuklab olish kerakmi?",
+        "a": "Yo'q. QR kodni skanerlang va brauzerda telefon raqamingiz bilan kiring."
+      },
+      "q2": {
+        "q": "To'lov qanday amalga oshadi?",
+        "a": "Payme yoki Click kartangiz orqali. Karta ulash to'lov provayderining xavfsiz sahifasida bajariladi."
+      },
+      "q3": {
+        "q": "Agar sun'iy intellekt xato qilsa-chi?",
+        "a": "Har bir xarid videoga olinadi. «Xarid noto'g'ri?» tugmasini bosing — videoni tekshirib, 24 soat ichida javob beramiz."
+      },
+      "q4": {
+        "q": "Eshik ochilmasa nima qilish kerak?",
+        "a": "Sahifani yangilab, qayta urinib ko'ring. Ochilmasa, yordam tugmasi orqali Telegram yoki telefon orqali yozing — pul yechilmaydi."
+      },
+      "q5": {
+        "q": "Chek olamanmi?",
+        "a": "Ha. Har bir xarid uchun fiskal chek chiqariladi va hisobingizda saqlanadi."
+      },
+      "q6": {
+        "q": "Ofisimizga muzlatgich qo'ydirish mumkinmi?",
+        "a": "Ha. «Biznes uchun» sahifasida so'rov qoldiring, biz siz bilan bog'lanamiz."
+      }
     }
   },
   "footer": {
@@ -65,7 +178,9 @@
     "pages": "Sahifalar",
     "contact": "Aloqa",
     "address": "Ko'kcha Darvoza ko'chasi 10, Shayxontohur, Toshkent",
-    "rights": "Barcha huquqlar himoyalangan."
+    "rights": "Barcha huquqlar himoyalangan.",
+    "privacy": "Maxfiylik siyosati",
+    "terms": "Foydalanish shartlari"
   },
   "fridge": {
     "contents": "Ichida nima bor",
@@ -129,7 +244,8 @@
     "home": "Bosh sahifaga",
     "fridgeTitle": "Muzlatgich topilmadi",
     "fridgeText": "Bu raqamdagi muzlatgich topilmadi. QR kodni qayta skanerlang yoki yaqin muzlatgichni tanlang.",
-    "fridgeCta": "Manzillarni ko'rish"
+    "fridgeCta": "Manzillarni ko'rish",
+    "photoAlt": "Hello muzlatgichi"
   },
   "biz": {
     "title": "Ofisingizga Hello muzlatgichini qo'ying",
@@ -137,27 +253,84 @@
     "free": "Joy egasi uchun bepul",
     "benefitsTitle": "Nima uchun hamkor bo'lish kerak",
     "benefits": {
-      "b1": { "t": "1 m² dan kam joy", "d": "Muzlatgich ixcham — bir burchakka sig'adi." },
-      "b2": { "t": "Taxminan 100 kg", "d": "Oddiy pol ham yetarli, maxsus tayyorgarlik kerak emas." },
-      "b3": { "t": "1 kunda o'rnatiladi", "d": "Yetkazib berish, ulash va ishga tushirish — bir kun ichida." },
-      "b4": { "t": "Onlayn monitoring", "d": "Holat va qoldiqlar doim nazoratda, to'ldirish o'z vaqtida." },
-      "b5": { "t": "24/7 xizmat", "d": "Xodimlar istagan vaqtda foydalanadi — navbat va kassa yo'q." }
+      "b1": {
+        "t": "1 m² dan kam joy",
+        "d": "Muzlatgich ixcham — bir burchakka sig'adi."
+      },
+      "b2": {
+        "t": "Taxminan 100 kg",
+        "d": "Oddiy pol ham yetarli, maxsus tayyorgarlik kerak emas."
+      },
+      "b3": {
+        "t": "1 kunda o'rnatiladi",
+        "d": "Yetkazib berish, ulash va ishga tushirish — bir kun ichida."
+      },
+      "b4": {
+        "t": "Onlayn monitoring",
+        "d": "Holat va qoldiqlar doim nazoratda, to'ldirish o'z vaqtida."
+      },
+      "b5": {
+        "t": "24/7 xizmat",
+        "d": "Xodimlar istagan vaqtda foydalanadi — navbat va kassa yo'q."
+      }
     },
     "idealTitle": "Qayerga mos",
-    "ideal": { "i1": "Ofislar", "i2": "Universitetlar", "i3": "Klinikalar", "i4": "Biznes markazlar", "i5": "Zavodlar" },
+    "ideal": {
+      "i1": "Ofislar",
+      "i2": "Universitetlar",
+      "i3": "Klinikalar",
+      "i4": "Biznes markazlar",
+      "i5": "Zavodlar"
+    },
     "formTitle": "Hamkorlik uchun so'rov",
     "formText": "Ma'lumotlarni qoldiring — biz siz bilan bog'lanamiz.",
     "form": {
-      "company": "Kompaniya nomi", "contact": "Aloqa uchun shaxs", "phone": "Telefon raqam",
-      "phoneInvalid": "Telefon raqamni to'liq kiriting", "type": "Joy turi", "address": "Manzil",
-      "people": "Xodimlar / odamlar soni", "comment": "Izoh", "submit": "So'rov yuborish",
-      "success": "Rahmat! So'rovingiz qabul qilindi", "successText": "Tez orada siz bilan bog'lanamiz.",
+      "company": "Kompaniya nomi",
+      "contact": "Aloqa uchun shaxs",
+      "phone": "Telefon raqam",
+      "phoneInvalid": "Telefon raqamni to'liq kiriting",
+      "type": "Joy turi",
+      "address": "Manzil",
+      "people": "Xodimlar / odamlar soni",
+      "comment": "Izoh",
+      "submit": "So'rov yuborish",
+      "success": "Rahmat! So'rovingiz qabul qilindi",
+      "successText": "Tez orada siz bilan bog'lanamiz.",
       "error": "Yuborib bo'lmadi. Qayta urinib ko'ring."
     },
-    "types": { "office": "Ofis", "university": "Universitet", "clinic": "Klinika", "center": "Biznes markaz", "factory": "Zavod", "other": "Boshqa" }
+    "types": {
+      "office": "Ofis",
+      "university": "Universitet",
+      "clinic": "Klinika",
+      "center": "Biznes markaz",
+      "factory": "Zavod",
+      "other": "Boshqa"
+    },
+    "photoAlt": "Ofisdagi Hello muzlatgichi"
   },
-  "productsPage": { "title": "Mahsulotlar", "subtitle": "Ichimliklar, snacklar va shokoladlar — narxlar muzlatgichdagi bilan bir xil.", "search": "Mahsulotni qidirish", "empty": "Hech narsa topilmadi" },
-  "locationsPage": { "title": "Manzillar", "subtitle": "Toshkentdagi Hello muzlatgichlari.", "district": "Tuman", "allDistricts": "Barcha tumanlar", "empty": "Bu tumanda muzlatgich yo'q", "access": "Kirish" },
+  "productsPage": {
+    "title": "Mahsulotlar",
+    "subtitle": "Ichimliklar, shokoladlar, snaklar va taomlar — narxlar muzlatgichdagi bilan bir xil.",
+    "search": "Mahsulotni qidirish",
+    "empty": "Hech narsa topilmadi",
+    "sort": "Saralash",
+    "sortPopular": "Mashhur",
+    "sortPriceAsc": "Arzonroq",
+    "sortPriceDesc": "Qimmatroq",
+    "count": "{count} ta mahsulot"
+  },
+  "locationsPage": {
+    "title": "Manzillar",
+    "subtitle": "Toshkentdagi Hello muzlatgichlari.",
+    "district": "Tuman",
+    "allDistricts": "Barcha tumanlar",
+    "empty": "Bu tumanda muzlatgich yo'q",
+    "access": "Kirish",
+    "view": "Ko'rinish",
+    "mapTab": "Xarita",
+    "listTab": "Ro'yxat",
+    "open": "Muzlatgichni ochish"
+  },
   "howPage": {
     "title": "Qanday ishlaydi",
     "subtitle": "Skanerlang, oling, keting — qolganini Hello hal qiladi.",
@@ -169,9 +342,18 @@
     },
     "whatIfTitle": "Agar... bo'lsa-chi?",
     "whatIf": {
-      "q1": { "q": "Sun'iy intellekt xato qilsa-chi?", "a": "Har bir xarid videoga olinadi. «Xarid noto'g'ri?» tugmasini bosing, videoni tekshiramiz va 24 soat ichida javob beramiz. Xato tasdiqlansa, pul qaytariladi." },
-      "q2": { "q": "Eshik ochilmasa-chi?", "a": "10 soniyada ochilmasa, xato ko'rsatiladi va pul yechilmaydi. Qayta urinib ko'ring yoki yordamga yozing." },
-      "q3": { "q": "Karta rad etilsa-chi?", "a": "Boshqa kartani ulang yoki balansni tekshiring. Karta ulash Payme yoki Click sahifasida bajariladi." }
+      "q1": {
+        "q": "Sun'iy intellekt xato qilsa-chi?",
+        "a": "Har bir xarid videoga olinadi. «Xarid noto'g'ri?» tugmasini bosing, videoni tekshiramiz va 24 soat ichida javob beramiz. Xato tasdiqlansa, pul qaytariladi."
+      },
+      "q2": {
+        "q": "Eshik ochilmasa-chi?",
+        "a": "10 soniyada ochilmasa, xato ko'rsatiladi va pul yechilmaydi. Qayta urinib ko'ring yoki yordamga yozing."
+      },
+      "q3": {
+        "q": "Karta rad etilsa-chi?",
+        "a": "Boshqa kartani ulang yoki balansni tekshiring. Karta ulash Payme yoki Click sahifasida bajariladi."
+      }
     }
   },
   "aboutPage": {
@@ -181,11 +363,289 @@
     "aiText": "Bugun biz sinovdan o'tgan sun'iy intellekt tanish tizimidan foydalanamiz. O'zimizning modulimiz — keyingi maqsadimiz.",
     "roadmapTitle": "Rejalarimiz",
     "roadmap": {
-      "r1": { "t": "Toshkentning ko'proq joylari", "d": "Ofis va universitetlarda muzlatgichlar sonini oshiramiz." },
-      "r2": { "t": "Viloyatlar", "d": "Hello'ni boshqa shaharlarga olib chiqamiz." },
-      "r3": { "t": "Butun O'zbekiston", "d": "Respublika bo'ylab xizmat." },
-      "r4": { "t": "Kassasiz do'kon", "d": "Muzlatgichdan to'liq kassasiz do'konga." }
+      "r1": {
+        "t": "Toshkentning ko'proq joylari",
+        "d": "Ofis va universitetlarda muzlatgichlar sonini oshiramiz."
+      },
+      "r2": {
+        "t": "Viloyatlar",
+        "d": "Hello'ni boshqa shaharlarga olib chiqamiz."
+      },
+      "r3": {
+        "t": "Butun O'zbekiston",
+        "d": "Respublika bo'ylab xizmat."
+      },
+      "r4": {
+        "t": "Kassasiz do'kon",
+        "d": "Muzlatgichdan to'liq kassasiz do'konga."
+      }
     },
     "contactTitle": "Aloqa"
+  },
+  "months": [
+    "Yanvar",
+    "Fevral",
+    "Mart",
+    "Aprel",
+    "May",
+    "Iyun",
+    "Iyul",
+    "Avgust",
+    "Sentabr",
+    "Oktabr",
+    "Noyabr",
+    "Dekabr"
+  ],
+  "legal": {
+    "draft": "QORALAMA — yurist tekshiruvidan o'tmagan",
+    "updated": "Oxirgi yangilanish: 2026-yil noyabr",
+    "privacy": {
+      "title": "Maxfiylik siyosati",
+      "s1": {
+        "t": "Qanday ma'lumotlar yig'iladi",
+        "d": "Telefon raqam, ism (ixtiyoriy), xaridlar tarixi va xaridlar videosi. Karta ma'lumotlari bizda saqlanmaydi."
+      },
+      "s2": {
+        "t": "Nima uchun ishlatiladi",
+        "d": "Xaridni hisoblash, to'lovni yechish, chek berish va nizolarni video orqali tekshirish uchun."
+      },
+      "s3": {
+        "t": "Karta ma'lumotlari",
+        "d": "Karta Payme yoki Click sahifasida ulanadi va faqat o'sha provayderda saqlanadi."
+      },
+      "s4": {
+        "t": "Huquqlaringiz",
+        "d": "Ma'lumotlaringizni ko'rish, o'zgartirish yoki o'chirishni so'rash uchun Sozlamalar bo'limidan foydalaning."
+      }
+    },
+    "terms": {
+      "title": "Foydalanish shartlari",
+      "s1": {
+        "t": "Xizmat haqida",
+        "d": "Hello — o'z-o'ziga xizmat ko'rsatadigan muzlatgich-do'kon. Xarid kameralar yordamida aniqlanadi."
+      },
+      "s2": {
+        "t": "To'lov",
+        "d": "Summa Payme yoki Click orqali ulangan kartadan yechiladi. Har bir xarid uchun fiskal chek beriladi."
+      },
+      "s3": {
+        "t": "Nizolar",
+        "d": "Xarid noto'g'ri bo'lsa, «Xarid noto'g'ri?» tugmasini bosing. Videoni tekshirib, 24 soat ichida javob beramiz."
+      },
+      "s4": {
+        "t": "Mas'uliyat",
+        "d": "Eshikni yopish va mahsulotni olib ketish foydalanuvchi zimmasida. Shartlar yangilanishi mumkin."
+      }
+    }
+  },
+  "account": {
+    "menu": {
+      "account": "Hisob",
+      "home": "Bosh sahifa",
+      "overview": "Bosh sahifa",
+      "profile": "Profil",
+      "purchases": "Xaridlar",
+      "cards": "Kartalar",
+      "tickets": "Murojaatlar",
+      "loyalty": "Chegirmalar",
+      "settings": "Sozlamalar",
+      "logout": "Chiqish"
+    },
+    "needLogin": {
+      "title": "Kirish kerak",
+      "text": "Hisobingizni ko'rish uchun telefon raqamingiz bilan kiring.",
+      "button": "Kirish"
+    },
+    "hello": "Salom, {name}!",
+    "helloNoName": "Salom!",
+    "overview": {
+      "defaultCard": "Asosiy karta",
+      "manage": "Boshqarish",
+      "noCard": "Karta ulanmagan",
+      "spent": "Shu oyda sarflangan",
+      "last": "So'nggi xaridlar",
+      "all": "Barchasi",
+      "quickFind": "Eng yaqin muzlatgich",
+      "quickHelp": "Yordam"
+    },
+    "profile": {
+      "noName": "Ism kiritilmagan",
+      "name": "Ism",
+      "phone": "Telefon raqam",
+      "phoneNote": "Raqam SMS kod orqali tasdiqlanadi.",
+      "changePhone": "Raqamni o'zgartirish",
+      "changeTitle": "Raqamni o'zgartirish",
+      "newPhone": "Yangi telefon raqam",
+      "phoneInvalid": "Telefon raqamni to'liq kiriting",
+      "sendCode": "Kod yuborish",
+      "codeText": "{phone} raqamiga yuborilgan kodni kiriting.",
+      "code": "SMS kod",
+      "confirm": "Tasdiqlash",
+      "wrongCode": "Kod noto'g'ri",
+      "phoneChanged": "Telefon raqam yangilandi",
+      "email": "Email",
+      "birthday": "Tug'ilgan kun",
+      "optional": "ixtiyoriy",
+      "save": "Saqlash",
+      "saved": "Saqlandi"
+    },
+    "cards": {
+      "title": "Kartalar",
+      "add": "Karta qo'shish",
+      "chooseProvider": "Karta qo'shish",
+      "chooseText": "Karta provayderning xavfsiz sahifasida ulanadi. Karta raqamini bizning saytda kiritmaysiz.",
+      "continue": "Davom etish",
+      "defaultBadge": "Asosiy",
+      "expires": "Amal qilish muddati",
+      "setDefault": "Asosiy qilish",
+      "remove": "O'chirish",
+      "removeTitle": "Kartani o'chirish",
+      "removeText": "•••• {last4} karta ro'yxatdan o'chiriladi. Davom etasizmi?",
+      "removeConfirm": "Ha, o'chirish",
+      "cancel": "Bekor qilish",
+      "empty": "Hali karta qo'shilmagan",
+      "emptyText": "Xarid uchun Payme yoki Click kartangizni ulang.",
+      "note": "Karta ma'lumotlari faqat Payme/Click'da saqlanadi.",
+      "added": "Karta qo'shildi",
+      "removed": "Karta o'chirildi",
+      "defaultSet": "Asosiy karta o'zgartirildi",
+      "failed": "Amal bajarilmadi"
+    },
+    "provider": {
+      "testBanner": "TEST — SINOV REJIMI. Bu haqiqiy to'lov emas.",
+      "title": "{provider} — karta ulash",
+      "text": "Bu {provider} sahifasining sinov nusxasi. Haqiqiy tizimda siz {provider}ning xavfsiz sahifasiga yo'naltirilasiz.",
+      "sample": "8600 •••• •••• •••• (test)",
+      "noInput": "Karta ma'lumotlari bu yerda kiritilmaydi va saqlanmaydi.",
+      "success": "Muvaffaqiyatli ulash (test)",
+      "cancel": "Bekor qilish",
+      "needLogin": "Avval tizimga kiring"
+    },
+    "purchases": {
+      "title": "Xaridlar",
+      "search": "Muzlatgich yoki mahsulot qidirish",
+      "fridge": "Muzlatgich",
+      "allFridges": "Barcha muzlatgichlar",
+      "from": "Dan",
+      "to": "Gacha",
+      "empty": "Hali xaridlar yo'q",
+      "emptyText": "Birinchi xaridingizdan keyin bu yerda ko'rinadi.",
+      "noResults": "Hech narsa topilmadi",
+      "reset": "Filtrni tozalash",
+      "status": {
+        "paid": "To'langan",
+        "canceled": "Bekor qilingan",
+        "nothing_taken": "Hech narsa olinmadi",
+        "processing": "Tekshirilmoqda"
+      }
+    },
+    "purchase": {
+      "back": "Xaridlarga qaytish",
+      "notFound": "Xarid topilmadi",
+      "card": "Karta",
+      "fridge": "Muzlatgich",
+      "downloadPdf": "Chekni yuklab olish (PDF)"
+    },
+    "support": {
+      "title": "Murojaatlar",
+      "reply24": "Videoni tekshirib, 24 soat ichida javob beramiz.",
+      "newTicket": "Yangi murojaat",
+      "empty": "Murojaatlar yo'q",
+      "emptyText": "Xaridda muammo bo'lsa, bu yerdan yozing.",
+      "ticketN": "Murojaat {id}",
+      "reason": "Sabab",
+      "reasons": {
+        "wrongItem": "Noto'g'ri mahsulot hisoblangan",
+        "notCharged": "Mahsulot olindi, pul yechilmagan",
+        "overcharged": "Ortiqcha pul yechildi",
+        "doorIssue": "Eshik ochilmadi yoki yopilmadi",
+        "other": "Boshqa"
+      },
+      "comment": "Izoh",
+      "photo": "Rasm",
+      "photoHint": "Rasm qo'shish (ixtiyoriy)",
+      "submit": "Yuborish",
+      "created": "Murojaat yuborildi",
+      "createdText": "{id} raqamli murojaatingiz qabul qilindi. Videoni tekshirib, 24 soat ichida javob beramiz.",
+      "backToList": "Murojaatlarga",
+      "purchase": "Xarid",
+      "noPurchase": "Xaridsiz (umumiy murojaat)",
+      "failed": "Yuborib bo'lmadi",
+      "contactTitle": "Tezkor aloqa",
+      "status": {
+        "open": "Ochiq",
+        "checking": "Videoni tekshirilmoqda",
+        "resolved": "Hal qilindi"
+      },
+      "timeline": {
+        "open": "Ochiq",
+        "checking": "Videoni tekshirilmoqda",
+        "resolved": "Hal qilindi"
+      }
+    },
+    "loyalty": {
+      "title": "Har {every}-xarid chegirmali",
+      "rule": "Har {every}-xarid {percent}% chegirma bilan hisoblanadi.",
+      "progress": "{n} / {total} xarid",
+      "left": "Chegirmagacha yana {n} ta xarid",
+      "ready": "Keyingi xarid {percent}% chegirmali!",
+      "disabled": "Chegirmalar dasturi hozircha mavjud emas"
+    },
+    "settings": {
+      "title": "Sozlamalar",
+      "language": "Til",
+      "theme": "Mavzu",
+      "light": "Yorug'",
+      "dark": "Qorong'i",
+      "notifications": "Bildirishnomalar",
+      "devices": "Kirilgan qurilmalar",
+      "thisDevice": "Bu qurilma",
+      "lastActive": "Oxirgi faollik",
+      "signOut": "Chiqish",
+      "logout": "Hisobdan chiqish",
+      "deleteBtn": "Hisobni o'chirish",
+      "deleteTitle": "Hisobni o'chirish",
+      "deleteText": "O'chirish so'rovi yuboriladi. Hisobingiz va ma'lumotlaringiz qonun doirasida o'chiriladi. Bu amalni bekor qilib bo'lmaydi.",
+      "deleteConfirm": "So'rov yuborish",
+      "deleteRequested": "O'chirish so'rovi yuborildi",
+      "cancel": "Bekor qilish"
+    },
+    "states": {
+      "errorTitle": "Yuklab bo'lmadi",
+      "errorText": "Ulanishni tekshirib, qayta urinib ko'ring.",
+      "retry": "Qayta urinish"
+    }
+  },
+  "media": {
+    "alt": {
+      "hallway": "Marmar zinapoyali foyeda joylashgan Hello aqlli muzlatgichi",
+      "lobby": "Ofis yo'lagi oxiridagi Hello muzlatgichi",
+      "bank": "Bank filialidagi Hello muzlatgichi",
+      "university": "Universitet soati yonidagi Hello muzlatgichi",
+      "scan": "Telefon bilan muzlatgichdagi QR kodni skanerlash",
+      "take": "Muzlatgichdan mahsulot olish",
+      "ai": "Muzlatgich ustidagi AI kamera",
+      "heroVideo": "Muzlatgichga yaqinlashib, QR kodni skanerlash — qisqa video",
+      "demoVideo": "Hello qanday ishlashini ko'rsatuvchi 33 soniyalik video"
+    },
+    "caption": {
+      "hallway": "Hello muzlatgichi",
+      "lobby": "Ofis",
+      "bank": "Bank filiali",
+      "university": "Universitet",
+      "ai": "AI kameralar mahsulotni taniydi"
+    },
+    "video": {
+      "title": "Videoda ko'ring",
+      "text": "33 soniyada butun jarayon: skanerlang, oling, keting.",
+      "b1": "QR kodni skanerlash",
+      "b2": "Mahsulotni olish va eshikni yopish",
+      "b3": "Avtomatik to'lov va chek",
+      "play": "Videoni ijro etish"
+    },
+    "gallery": {
+      "title": "Hello hayotda",
+      "subtitle": "Toshkentdagi haqiqiy muzlatgichlar."
+    }
   }
 }
