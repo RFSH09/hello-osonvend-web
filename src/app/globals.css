@@ -75,3 +75,7 @@ body {
 @media print {
   body { background: #fff; }
 }
+
+/* Horizontal swipe rows: keep swiping, hide the bar */
+.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }

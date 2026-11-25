@@ -36,8 +36,8 @@ export function Footer() {
           </div>
         </div>
 
-        <nav aria-label="Footer" className="flex flex-col gap-1">
-          <h3 className="mb-2 font-display font-bold">{t("footer.pages")}</h3>
+        <nav aria-label="Footer" className="grid grid-cols-2 gap-x-4 gap-y-0 md:flex md:flex-col md:gap-1">
+          <h3 className="col-span-2 mb-2 font-display font-bold">{t("footer.pages")}</h3>
           {links.map(([key, href]) => (
             <Link key={href} href={href} className="flex min-h-11 items-center text-white/80 hover:text-white">
               {t(key)}

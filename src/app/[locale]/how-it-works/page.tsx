@@ -1,11 +1,15 @@
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, CreditCard, DoorOpen, ScanLine, Smartphone } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { DemoVideo } from "@/components/media/DemoVideo";
-import { StepVisual, type StepId } from "@/components/media/StepVisual";
 import { Section, SectionHeading } from "@/components/site/bits";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 
-const STEPS: StepId[] = ["s1", "s2", "s3", "s4"];
+const STEPS = [
+  ["s1", ScanLine],
+  ["s2", Smartphone],
+  ["s3", DoorOpen],
+  ["s4", CreditCard],
+] as const;
 
 export default async function HowPage({ params }: PageProps<"/[locale]/how-it-works">) {
   const { locale } = await params;
@@ -22,9 +26,15 @@ export default async function HowPage({ params }: PageProps<"/[locale]/how-it-wo
 
       <Section tone="white">
         <ol className="flex flex-col gap-14">
-          {STEPS.map((id, i) => (
+          {STEPS.map(([id, Icon], i) => (
             <li key={id} className={`grid items-center gap-6 md:grid-cols-2 md:gap-12 ${i % 2 ? "md:[&>*:first-child]:order-2" : ""}`}>
-              <div className="mx-auto w-full max-w-[320px]"><StepVisual id={id} /></div>
+              <div className="relative mx-auto flex aspect-[4/3] w-full max-w-[420px] items-center justify-center overflow-hidden rounded-[28px] bg-panel">
+                <div aria-hidden className="absolute -right-10 -top-10 size-48 rounded-full bg-accent/25 blur-3xl" />
+                <span className="absolute left-6 top-5 font-display text-6xl font-extrabold text-white/10">0{i + 1}</span>
+                <span className="relative flex size-28 items-center justify-center rounded-[28px] bg-white/10 text-accent ring-1 ring-white/15">
+                  <Icon size={56} strokeWidth={1.75} aria-hidden />
+                </span>
+              </div>
               <div>
                 <span className="mb-3 flex size-12 items-center justify-center rounded-full bg-accent font-display text-xl font-extrabold text-navy">{i + 1}</span>
                 <h2 className="font-display text-2xl font-bold">{t(`steps.items.${id}.t`)}</h2>
@@ -40,7 +50,7 @@ export default async function HowPage({ params }: PageProps<"/[locale]/how-it-wo
           <div className="max-w-xl">
             <SectionHeading title={t("media.video.title")} subtitle={t("media.video.text")} />
           </div>
-          <div className="mx-auto lg:mx-0">
+          <div className="mx-auto w-full max-w-[250px] lg:mx-0">
             <DemoVideo label={t("media.alt.demoVideo")} playLabel={t("media.video.play")} />
           </div>
         </div>
