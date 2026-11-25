@@ -1,20 +1,15 @@
 "use client";
 
 import { animate, motion, useInView, useMotionValue, useReducedMotion, useTransform } from "framer-motion";
-import Image from "next/image";
 import { useEffect, useRef, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
+import { HelloLogo } from "@/components/ui/HelloLogo";
 
-/** Real Hello wordmark. `light` = for dark backgrounds (white logo). ~36px tall. */
+/** Real Hello wordmark (vector). Dark letters on light, white in dark mode; `light` = always white. */
 export function Logo({ className, light }: { className?: string; light?: boolean }) {
   return (
-    <Image
-      src={light ? "/brand/hello-logo-white.png" : "/brand/hello-logo-dark.png"}
-      alt="Hello"
-      width={72}
-      height={36}
-      priority
-      className={cn("h-9 w-auto self-start", className)}
+    <HelloLogo
+      className={cn("h-9 w-auto self-start", light ? "text-white" : "text-navy dark:text-white", className)}
     />
   );
 }

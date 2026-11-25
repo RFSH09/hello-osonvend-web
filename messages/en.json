@@ -662,5 +662,73 @@
   "empty": {
     "title": "Nothing here yet",
     "text": "Data will show up here."
+  },
+  "demo": {
+    "kicker": "Step by step",
+    "title": "How it works",
+    "subtitle": "See what happens on your phone at every step. Tap a step or just watch.",
+    "pause": "Pause",
+    "play": "Play",
+    "marquee": "Inside the fridge",
+    "steps": [
+      {
+        "title": "Scan the QR code",
+        "tag": "No app",
+        "desc": "Point your phone camera at the QR code on the fridge door.",
+        "bullets": [
+          "Your normal camera is enough — no app to install",
+          "This exact fridge's page opens in your browser",
+          "You instantly see what's inside and the prices"
+        ]
+      },
+      {
+        "title": "Sign in with your phone number",
+        "tag": "First time only",
+        "desc": "Enter your number and confirm the code from the SMS.",
+        "bullets": [
+          "+998 number → 6-digit code by SMS",
+          "Link your Payme or Click card once",
+          "Next time you're signed in automatically — one tap"
+        ]
+      },
+      {
+        "title": "Open the door and take",
+        "tag": "No rush",
+        "desc": "Tap “Open door” — the lock opens.",
+        "bullets": [
+          "Take what you want — changed your mind? Put it back",
+          "No cashier, no queue",
+          "Close the door when you're done"
+        ]
+      },
+      {
+        "title": "Automatic payment",
+        "tag": "Automatic",
+        "desc": "When the door closes, AI cameras see what you took.",
+        "bullets": [
+          "The amount is charged to your card automatically",
+          "Receipt on your phone right away + official fiscal receipt",
+          "Something wrong? Tap “Wrong purchase?” — we check the video and fix it"
+        ]
+      }
+    ],
+    "screen": {
+      "scanning": "Scanning QR code…",
+      "opened": "Fridge page opened",
+      "phone": "Phone number",
+      "code": "SMS code",
+      "cardLinked": "card linked",
+      "doorOpen": "Door open",
+      "taken": "Taken",
+      "closeHint": "Close the door when done",
+      "receiptTitle": "Purchase complete",
+      "total": "Total",
+      "wrong": "Wrong purchase?",
+      "fiscal": "Fiscal receipt"
+    },
+    "hero": {
+      "scan": "Scan",
+      "doorOpen": "Door opened"
+    }
   }
 }

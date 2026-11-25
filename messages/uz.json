@@ -662,5 +662,73 @@
   "empty": {
     "title": "Hozircha hech narsa yo'q",
     "text": "Bu yerda ma'lumotlar paydo bo'ladi."
+  },
+  "demo": {
+    "kicker": "Qadamma-qadam",
+    "title": "Qanday ishlaydi",
+    "subtitle": "Har bir qadamda telefoningizda nima bo'lishini ko'ring. Qadamni bosing yoki kuzating.",
+    "pause": "To'xtatish",
+    "play": "Davom ettirish",
+    "marquee": "Muzlatgich ichida",
+    "steps": [
+      {
+        "title": "QR kodni skanerlang",
+        "tag": "Ilovasiz",
+        "desc": "Telefon kamerasini muzlatgich eshigidagi QR kodga tuting.",
+        "bullets": [
+          "Oddiy kamera yetarli — ilova yuklab olish shart emas",
+          "Brauzerda aynan shu muzlatgich sahifasi ochiladi",
+          "Ichida nima borligi va narxlarni darhol ko'rasiz"
+        ]
+      },
+      {
+        "title": "Telefon raqam bilan kiring",
+        "tag": "Faqat 1-marta",
+        "desc": "Raqamingizni kiriting va SMS orqali kelgan kodni tasdiqlang.",
+        "bullets": [
+          "+998 raqam → SMS orqali 6 xonali kod",
+          "Payme yoki Click kartangizni bir marta ulaysiz",
+          "Keyingi safar kirish avtomatik — bir tegish kifoya"
+        ]
+      },
+      {
+        "title": "Eshikni oching va oling",
+        "tag": "Shoshilmasdan",
+        "desc": "«Eshikni ochish» tugmasini bosing — qulf ochiladi.",
+        "bullets": [
+          "Kerakli mahsulotlarni oling — fikringiz o'zgarsa, joyiga qo'ying",
+          "Kassa ham, navbat ham yo'q",
+          "Tugatgach eshikni yoping"
+        ]
+      },
+      {
+        "title": "To'lov avtomatik",
+        "tag": "Avtomatik",
+        "desc": "Eshik yopilgach, AI kameralar nimani olganingizni aniqlaydi.",
+        "bullets": [
+          "Summa kartangizdan avtomatik yechiladi",
+          "Chek darhol telefoningizda + rasmiy fiskal chek",
+          "Xato bo'lsa — «Xarid noto'g'ri?»: videoni tekshirib, tuzatamiz"
+        ]
+      }
+    ],
+    "screen": {
+      "scanning": "QR kod skanerlanmoqda…",
+      "opened": "Muzlatgich sahifasi ochildi",
+      "phone": "Telefon raqam",
+      "code": "SMS kod",
+      "cardLinked": "karta ulandi",
+      "doorOpen": "Eshik ochiq",
+      "taken": "Olindi",
+      "closeHint": "Tugatgach eshikni yoping",
+      "receiptTitle": "Xarid yakunlandi",
+      "total": "Jami",
+      "wrong": "Xarid noto'g'ri?",
+      "fiscal": "Fiskal chek"
+    },
+    "hero": {
+      "scan": "Skanerlang",
+      "doorOpen": "Eshik ochildi"
+    }
   }
 }

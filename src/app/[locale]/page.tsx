@@ -1,27 +1,20 @@
 import {
-  ArrowRight, Check, ChevronDown, Clock, CreditCard, DoorOpen, Receipt, Ruler, ScanLine,
-  ShieldCheck, Smartphone, Tag, Users, UserX, Video, Wifi, Wrench,
+  ArrowRight, ChevronDown, Clock, Receipt, Ruler, ScanLine,
+  ShieldCheck, Tag, Users, UserX, Video, Wifi, Wrench,
 } from "lucide-react";
-import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { ProductVisual } from "@/components/art/ProductVisual";
 import { DemoVideo } from "@/components/media/DemoVideo";
-import { CountUp, Reveal } from "@/components/site/bits";
+import { HeroFridge } from "@/components/home/HeroFridge";
+import { HowItWorks, type DemoLabels, type DemoStep } from "@/components/home/HowItWorks";
+import { ProductMarquee } from "@/components/home/ProductMarquee";
+import { CountUp } from "@/components/site/bits";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { BrandLogo } from "@/components/ui/BrandLogo";
 import { ProductCard } from "@/components/ui/primitives";
 import { Link } from "@/i18n/navigation";
 import { config } from "@/config";
-import { formatPrice } from "@/lib/format";
-import { PRODUCT_BY_ID, POPULAR_IDS } from "@/lib/data/products";
-import { PHOTOS } from "@/lib/media";
+import { PRODUCT_BY_ID, PRODUCTS, POPULAR_IDS } from "@/lib/data/products";
 
-const STEPS = [
-  ["s1", ScanLine],
-  ["s2", Smartphone],
-  ["s3", DoorOpen],
-  ["s4", CreditCard],
-] as const;
 const WHY = [
   ["w1", Clock], ["w2", Users], ["w3", UserX], ["w4", Tag], ["w5", Video], ["w6", Receipt],
 ] as const;
@@ -59,6 +52,9 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
   const last = parts.pop();
   const cola = PRODUCT_BY_ID.get("coca-cola")!;
   const snickers = PRODUCT_BY_ID.get("snickers")!;
+  const gorilla = PRODUCT_BY_ID.get("gorilla")!;
+  const demoSteps = t.raw("demo.steps") as DemoStep[];
+  const demoLabels = { ...(t.raw("demo.screen") as Omit<DemoLabels, "pause" | "play">), pause: t("demo.pause"), play: t("demo.play") };
 
   return (
     <main>
@@ -117,72 +113,26 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
             </div>
           </div>
 
-          {/* Visual: real fridge photo (shown at ≤ its native size) + crisp product chips */}
-          <div className="relative mx-auto w-full max-w-[340px] sm:max-w-[400px]">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[28px] ring-1 ring-white/10 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)]">
-              <Image
-                src={PHOTOS.hallway}
-                alt={t("media.alt.hallway")}
-                fill
-                priority
-                quality={90}
-                sizes="(max-width: 640px) 340px, 400px"
-                placeholder="blur"
-                className="object-cover object-[50%_35%]"
-              />
-              <div aria-hidden className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/45 to-transparent" />
-              <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-sm font-bold text-navy shadow-lg">
-                <span className="flex size-5 items-center justify-center rounded-full bg-accent"><Check size={14} strokeWidth={3} aria-hidden /></span>
-                {t("hero.noCashier")} · 24/7
-              </span>
-            </div>
-
-            {[
-              { p: cola, pos: "-left-4 top-8 sm:-left-12" },
-              { p: snickers, pos: "-right-3 top-1/2 sm:-right-10" },
-            ].map(({ p, pos }) => (
-              <div
-                key={p.id}
-                className={`absolute ${pos} flex items-center gap-2 rounded-2xl bg-white p-2 pr-3 text-navy shadow-xl ring-1 ring-black/5`}
-              >
-                <span className="relative block size-12 overflow-hidden rounded-xl bg-white">
-                  <ProductVisual product={p} className="size-full" sizes="48px" />
-                </span>
-                <span className="leading-tight">
-                  <span className="block text-xs font-semibold text-muted">{p.name}</span>
-                  <span className="block font-display text-sm font-extrabold">{formatPrice(p.price, t("common.unit"))}</span>
-                </span>
-              </div>
-            ))}
-          </div>
+          <HeroFridge
+            products={[cola, snickers, gorilla]}
+            unit={t("common.unit")}
+            alt={t("media.alt.hallway")}
+            doorOpenLabel={t("demo.hero.doorOpen")}
+            scanLabel={t("demo.hero.scan")}
+          />
         </div>
       </section>
 
+      <ProductMarquee products={PRODUCTS} label={t("demo.marquee")} />
+
       {/* ───────── 2. HOW IT WORKS (swipe on phones) ───────── */}
-      <Band tone="white" id="how">
-        <Heading kicker="Scan · Take · Go" title={t("steps.title")} subtitle={t("steps.subtitle")} />
-        <ol className="no-scrollbar -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 lg:grid-cols-4">
-          {STEPS.map(([id, Icon], i) => (
-            <li key={id} className="w-[78%] shrink-0 snap-start sm:w-auto">
-              <Reveal delay={i * 0.05} className="h-full">
-                <div className="flex h-full flex-col gap-4 rounded-3xl bg-background p-6 ring-1 ring-border">
-                  <div className="flex items-center justify-between">
-                    <span className="flex size-14 items-center justify-center rounded-2xl bg-panel text-accent">
-                      <Icon size={28} aria-hidden />
-                    </span>
-                    <span className="font-display text-5xl font-extrabold text-border">0{i + 1}</span>
-                  </div>
-                  <h3 className="font-display text-xl font-bold">{t(`steps.items.${id}.t`)}</h3>
-                  <p className="text-muted">{t(`steps.items.${id}.d`)}</p>
-                </div>
-              </Reveal>
-            </li>
-          ))}
-        </ol>
+      <Band tone="light" id="how">
+        <Heading kicker={t("demo.kicker")} title={t("demo.title")} subtitle={t("demo.subtitle")} />
+        <HowItWorks steps={demoSteps} labels={demoLabels} basket={[cola, snickers]} unit={t("common.unit")} />
       </Band>
 
       {/* ───────── 3. POPULAR PRODUCTS ───────── */}
-      <Band tone="light">
+      <Band tone="white">
         <div className="flex items-end justify-between gap-4">
           <Heading title={t("popular.title")} subtitle={t("popular.subtitle")} />
           <Link href="/products" className="mb-8 hidden shrink-0 items-center gap-1 font-semibold text-accent-strong hover:underline sm:mb-12 sm:inline-flex">
@@ -202,7 +152,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
       </Band>
 
       {/* ───────── 4. WHY HELLO + VIDEO ───────── */}
-      <Band tone="white">
+      <Band tone="light">
         <div className="grid items-center gap-12 lg:grid-cols-[1fr_auto] lg:gap-16">
           <div>
             <Heading title={t("why.title")} subtitle={t("why.subtitle")} />
