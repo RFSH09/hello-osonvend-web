@@ -10,6 +10,7 @@ import { Header } from "@/components/site/Header";
 import { ThemeInit } from "@/components/site/ThemeInit";
 import { ToastProvider } from "@/components/ui/overlays";
 import { routing } from "@/i18n/routing";
+import { asset } from "@/lib/asset";
 import "../globals.css";
 
 const inter = Inter({
@@ -35,7 +36,7 @@ export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Pr
   return {
     title: t("title"),
     description: t("description"),
-    icons: { icon: [{ url: "/brand/app-icon-32.png", sizes: "32x32", type: "image/png" }, { url: "/brand/app-icon-192.png", sizes: "192x192", type: "image/png" }], apple: "/brand/app-icon-192.png" },
+    icons: { icon: [{ url: asset("/brand/app-icon-32.png"), sizes: "32x32", type: "image/png" }, { url: asset("/brand/app-icon-192.png"), sizes: "192x192", type: "image/png" }], apple: asset("/brand/app-icon-192.png") },
     alternates: { languages: Object.fromEntries(routing.locales.map((l) => [l, `/${l}`])) },
   };
 }

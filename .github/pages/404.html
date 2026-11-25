@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>404 — Hello</title>
+  <style>
+    body{margin:0;min-height:100vh;display:grid;place-items:center;background:#f5f7fa;color:#33384b;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;padding:24px;text-align:center}
+    h1{font-size:72px;margin:0;color:#3adc93}
+    h2{margin:8px 0 4px;font-size:28px}
+    p{margin:0 0 24px;color:#5d6275}
+    a{display:inline-flex;min-height:48px;align-items:center;padding:0 28px;border-radius:999px;background:#3adc93;color:#33384b;font-weight:700;text-decoration:none}
+  </style>
+</head>
+<body>
+  <main>
+    <h1>404</h1>
+    <h2>Sahifa topilmadi</h2>
+    <p>Muzlatgich topilmadi yoki bunday sahifa yo'q.<br />Страница не найдена · Page not found</p>
+    <!-- GitHub Pages serves this file for every unknown URL; the repo name is the first path segment -->
+    <a id="home" href="/">Bosh sahifaga</a>
+  </main>
+  <script>
+    var seg = location.pathname.split("/")[1];
+    var base = seg && seg !== "uz" && seg !== "ru" && seg !== "en" && seg !== "uz-Cyrl" ? "/" + seg + "/" : "/";
+    document.getElementById("home").href = base + "uz/";
+  </script>
+</body>
+</html>

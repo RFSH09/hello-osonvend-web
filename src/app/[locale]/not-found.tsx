@@ -1,3 +1,5 @@
+"use client";
+
 import { useTranslations } from "next-intl";
 import { PhotoSlot } from "@/components/site/PhotoSlot";
 import { PHOTOS } from "@/lib/media";

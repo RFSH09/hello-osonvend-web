@@ -1,3 +1,5 @@
+"use client";
+
 import { SearchX } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { ButtonLink } from "@/components/ui/ButtonLink";

@@ -4,6 +4,7 @@
  * as the fallback source.
  */
 import { config } from "@/config";
+import { asset } from "@/lib/asset";
 import bank from "../../public/photos/fridge-bank-branch.jpg";
 import hallway from "../../public/photos/fridge-hallway.jpg";
 import lobby from "../../public/photos/fridge-office-lobby.jpg";
@@ -23,12 +24,12 @@ export function isPhotoVisible(key: PhotoKey) {
 export const GALLERY_ORDER: PhotoKey[] = ["hallway", "lobby", "bank", "university"];
 
 export const VIDEO = {
-  heroLoop: "/video/hello-hero-loop.mp4",
-  demo: "/video/hello-demo-clean.mp4",
-  poster: "/video/poster-fridge.jpg",
+  heroLoop: asset("/video/hello-hero-loop.mp4"),
+  demo: asset("/video/hello-demo-clean.mp4"),
+  poster: asset("/video/poster-fridge.jpg"),
   stills: {
-    scan: "/video/still-scan-qr.jpg",
-    take: "/video/still-take-product.jpg",
-    ai: "/video/still-ai-camera.jpg",
+    scan: asset("/video/still-scan-qr.jpg"),
+    take: asset("/video/still-take-product.jpg"),
+    ai: asset("/video/still-ai-camera.jpg"),
   },
 } as const;

@@ -1,0 +1,72 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci --legacy-peer-deps
+
+      # Client-branded photos are git-ignored (no permission to publish them). The code imports them
+      # statically, so give the build harmless stand-ins; they are never shown while
+      # config.showClientPhotos is false.
+      - name: Stand-ins for ignored client photos
+        run: |
+          for f in fridge-office-lobby fridge-bank-branch fridge-university-top; do
+            [ -f "public/photos/$f.jpg" ] || cp public/photos/fridge-hallway.jpg "public/photos/$f.jpg"
+          done
+
+      # A static host has no server: drop the locale middleware and the catch-all 404 route
+      # (the root redirect and 404.html in .github/pages replace them).
+      - name: Prepare static export
+        run: |
+          rm -f src/proxy.ts
+          rm -rf "src/app/[locale]/[...rest]"
+
+      - name: Build
+        run: npm run build
+        env:
+          GITHUB_PAGES: "true"
+          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
+
+      - name: Add root redirect and 404 page
+        run: |
+          cp .github/pages/index.html out/index.html
+          cp .github/pages/404.html out/404.html
+          rm -f out/README.md
+          touch out/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

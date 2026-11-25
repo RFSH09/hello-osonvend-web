@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hello by Osonvend</title>
+  <meta http-equiv="refresh" content="0; url=uz/" />
+  <link rel="canonical" href="uz/" />
+  <script>
+    // The site is statically hosted, so there is no locale middleware: pick the language here.
+    (function () {
+      var l = (navigator.language || "uz").toLowerCase();
+      var to = l.indexOf("ru") === 0 ? "ru" : l.indexOf("en") === 0 ? "en" : "uz";
+      location.replace(to + "/");
+    })();
+  </script>
+</head>
+<body style="font-family:system-ui,sans-serif;background:#f5f7fa;color:#33384b;display:grid;place-items:center;min-height:100vh;margin:0">
+  <a href="uz/" style="color:#33384b;font-weight:700">Hello by Osonvend</a>
+</body>
+</html>

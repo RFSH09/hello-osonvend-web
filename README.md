@@ -47,6 +47,16 @@ Unknown URLs show the branded 404. Unknown fridge keys show "Muzlatgich topilmad
 - **Fridge stock** is deterministic mock data until the backend provides it.
 - Official Payme/Click SVG logos (`public/brands/`), then set `config.brandLogos` to `true`.
 
+## Hosting (GitHub Pages)
+The site is deployed by `.github/workflows/pages.yml` on every push to `main`: https://rfsh09.github.io/hello-osonvend-web/
+
+GitHub Pages is static hosting, so the workflow builds a **static export** (`GITHUB_PAGES=true`, `NEXT_PUBLIC_BASE_PATH=/hello-osonvend-web`, see `next.config.ts`) and:
+- removes `src/proxy.ts` (locale middleware) and the catch-all 404 route, and adds `.github/pages/index.html` (picks the language) and `.github/pages/404.html`;
+- pre-renders the 25 real fridges, purchases `P1001-P1025` and the two provider test pages;
+- gives the build stand-ins for the git-ignored client photos (they are never shown while `showClientPhotos` is false).
+
+Limits of the static build: there is no server, so the account area runs on browser storage only (as in the mock), purchases recorded during a session have no detail page, and unknown URLs show the static `404.html`. For production use a Node host (Vercel etc.) with the normal `npm run build`.
+
 ## Mock -> real API
 All data access goes through `src/lib/api/index.ts` and `src/lib/account/api.ts`. Replace the function bodies with `fetch()` calls to Django (same signatures). In development a DEV panel (bottom right of the fridge page) jumps between flow states.
 

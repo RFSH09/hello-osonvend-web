@@ -1,4 +1,5 @@
 import { config } from "@/config";
+import { asset } from "@/lib/asset";
 import { cn } from "@/lib/cn";
 
 export type Brand = "payme" | "click";
@@ -10,7 +11,7 @@ export function BrandLogo({ brand, className, onDark }: { brand: Brand; classNam
     return (
       <span className={cn("inline-flex items-center", onDark && "rounded-full bg-white px-3 py-1")}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={`/brands/${brand}.svg`} alt={NAME[brand]} className={cn("h-6 w-auto", className)} />
+        <img src={asset(`/brands/${brand}.svg`)} alt={NAME[brand]} className={cn("h-6 w-auto", className)} />
       </span>
     );
   }

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { asset } from "@/lib/asset";
 import { cn } from "@/lib/cn";
 import type { Product } from "@/lib/api/types";
 import { ProductArt } from "./ProductArt";
@@ -33,7 +34,7 @@ export function ProductVisual({
   return (
     <span className={cn("relative block", className)}>
       <Image
-        src={`/products/${product.slug}.webp`}
+        src={asset(`/products/${product.slug}.webp`)}
         alt={product.name}
         width={800}
         height={800}
