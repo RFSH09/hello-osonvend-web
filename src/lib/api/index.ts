@@ -22,16 +22,19 @@ export async function listPublicFridges(): Promise<Fridge[]> {
 }
 
 export async function nearestFridges(from: Fridge, limit = 3): Promise<Fridge[]> {
+  // Without coordinates (admin has none yet) the order of the list is used.
   return FRIDGES.filter((f) => f.public && f.status !== "offline" && f.id !== from.id)
-    .sort((a, b) => distanceKm(from, a) - distanceKm(from, b))
+    .sort((a, b) => (distanceKm(from, a) ?? Infinity) - (distanceKm(from, b) ?? Infinity))
     .slice(0, limit);
 }
 
 /** Mock: any phone is accepted; any 6-digit code is accepted. */
-export async function requestOtp(_phone: string): Promise<void> {
+export async function requestOtp(phone: string): Promise<void> {
+  void phone;
   await wait(500);
 }
-export async function verifyOtp(_phone: string, code: string): Promise<boolean> {
+export async function verifyOtp(phone: string, code: string): Promise<boolean> {
+  void phone;
   await wait(500);
   return /^\d{6}$/.test(code);
 }

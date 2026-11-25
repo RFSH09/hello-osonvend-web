@@ -7,6 +7,7 @@ import { Link } from "@/i18n/navigation";
 import type { Purchase } from "@/lib/account/types";
 import { PRODUCT_BY_ID } from "@/lib/data/products";
 import { formatPrice, formatTashkentTime } from "@/lib/format";
+import { useFridgeLabel } from "@/lib/fridge-label";
 
 const TONE = { paid: "success", canceled: "danger", nothing_taken: "neutral", processing: "warning" } as const;
 
@@ -29,7 +30,7 @@ export function Thumbs({ purchase, max = 3 }: { purchase: Purchase; max?: number
         ) : null;
       })}
       {more > 0 && (
-        <span className="flex size-10 items-center justify-center rounded-full bg-background text-xs font-bold ring-2 ring-surface">+{more}</span>
+        <span className="flex size-10 items-center justify-center rounded-full bg-background text-sm font-bold ring-2 ring-surface">+{more}</span>
       )}
     </div>
   );
@@ -37,13 +38,14 @@ export function Thumbs({ purchase, max = 3 }: { purchase: Purchase; max?: number
 
 export function PurchaseRow({ purchase, locale }: { purchase: Purchase; locale: string }) {
   const t = useTranslations();
+  const { byId } = useFridgeLabel();
   return (
     <Link
       href={`/account/purchases/${purchase.id}`}
       className="flex min-h-[72px] items-center gap-3 rounded-card border border-border bg-surface p-3 transition-colors duration-200 hover:border-accent sm:gap-4 sm:p-4"
     >
       <div className="min-w-0 flex-1">
-        <div className="truncate font-semibold">{purchase.fridgeName}</div>
+        <div className="truncate font-semibold">{byId(purchase.fridgeId, purchase.fridgeName)}</div>
         <div className="text-sm text-muted">{formatTashkentTime(purchase.createdAt, locale)}</div>
         <div className="mt-1.5 sm:hidden"><PurchaseStatus status={purchase.status} /></div>
       </div>

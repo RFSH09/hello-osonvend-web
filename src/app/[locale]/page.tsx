@@ -72,7 +72,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
         <ul className="mx-auto grid w-full max-w-[1200px] grid-cols-1 gap-8 px-4 py-12 text-center sm:grid-cols-3 sm:px-6">
           <li><div className="font-display text-5xl font-extrabold text-accent"><CountUp to={config.stats.fridges} suffix="+" /></div><div className="mt-1 text-white/75">{t("stats.fridges")}</div></li>
           <li><div className="font-display text-5xl font-extrabold text-accent"><CountUp to={config.stats.orders} suffix="+" /></div><div className="mt-1 text-white/75">{t("stats.orders")}</div></li>
-          <li><div className="whitespace-nowrap font-display text-3xl font-extrabold text-accent sm:text-4xl lg:text-5xl">{t("stats.since", { year: config.stats.sinceYear })}</div><div className="mt-1 text-white/75">{t("stats.sinceLabel")}</div></li>
+          <li><div className="whitespace-nowrap font-display text-3xl font-extrabold text-accent sm:text-4xl lg:text-5xl">{t("stats.since", { year: config.stats.since })}</div><div className="mt-1 text-white/75">{t("stats.sinceLabel")}</div></li>
         </ul>
       </section>
 

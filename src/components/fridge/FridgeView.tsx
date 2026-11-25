@@ -13,6 +13,7 @@ import type { Fridge, Order, StockItem } from "@/lib/api/types";
 import { PRODUCT_BY_ID } from "@/lib/data/products";
 import { config } from "@/config";
 import { distanceKm } from "@/lib/data/fridges";
+import { useFridgeLabel } from "@/lib/fridge-label";
 import { flowReducer, initialFlow, UNLOCK_TIMEOUT_MS, type FlowState } from "@/lib/flow/machine";
 import { FlowOverlay } from "./FlowOverlay";
 import { StatusBadge } from "./StatusBadge";
@@ -40,6 +41,7 @@ export function FridgeView({
   nearest: Fridge[];
 }) {
   const t = useTranslations();
+  const { label } = useFridgeLabel();
   const { user, openLogin } = useAuth();
   const [flow, dispatch] = useReducer(flowReducer, initialFlow);
   const [devOpen, setDevOpen] = useState(false);
@@ -97,8 +99,8 @@ export function FridgeView({
             <StatusBadge status={fridge.status} onDark />
             <span className="text-sm text-white/60">{fridge.id}</span>
           </div>
-          <h1 className="font-display text-3xl font-extrabold sm:text-4xl">{fridge.name}</h1>
-          <p className="flex items-center gap-2 text-white/75"><MapPin size={18} aria-hidden />{fridge.address}</p>
+          <h1 className="font-display text-3xl font-extrabold sm:text-4xl">{label(fridge)}</h1>
+          <p className="flex items-center gap-2 text-white/75"><MapPin size={18} aria-hidden />{fridge.address ?? t(`access.${fridge.access}`)}</p>
         </div>
       </div>
 
@@ -115,8 +117,8 @@ export function FridgeView({
               {nearest.map((f) => (
                 <li key={f.id}>
                   <Link href={`/refrigerator/${f.id}`} className="block rounded-card border border-border bg-surface p-4 hover:border-accent">
-                    <div className="font-semibold">{f.name}</div>
-                    <div className="text-sm text-muted">{t("fridge.km", { km: distanceKm(fridge, f).toFixed(1) })}</div>
+                    <div className="font-semibold">{label(f)}</div>
+                    <div className="text-sm text-muted">{distanceKm(fridge, f) !== null ? t("fridge.km", { km: distanceKm(fridge, f)!.toFixed(1) }) : t(`access.${f.access}`)}</div>
                   </Link>
                 </li>
               ))}
@@ -166,7 +168,7 @@ export function FridgeView({
       <FlowOverlay state={flow} onClosed={() => dispatch({ type: "DOOR_CLOSED" })} onReset={() => dispatch({ type: "RESET" })} />
 
       {process.env.NODE_ENV === "development" && (
-        <div className="fixed bottom-24 right-2 z-[70] flex max-w-[11rem] flex-col gap-1 rounded-xl bg-black/80 p-2 text-xs text-white">
+        <div className="fixed bottom-24 right-2 z-[70] flex max-w-[11rem] flex-col gap-1 rounded-xl bg-black/80 p-2 text-sm text-white">
           <button onClick={() => setDevOpen((o) => !o)} className="text-left font-bold">DEV · {flow.name}</button>
           {devOpen &&
             ([

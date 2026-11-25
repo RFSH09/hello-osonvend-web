@@ -1,21 +1,52 @@
-import type { District, Fridge, FridgeStatus, StockItem } from "@/lib/api/types";
+import type { Fridge, FridgeStatus, FridgeType, StockItem } from "@/lib/api/types";
 import { PRODUCTS } from "./products";
 
-/** Appendix B: generic mock fridges, one offline. */
-export const FRIDGES: Fridge[] = [
-  { id: "W0016188", name: "Office Tower — Yunusobod", address: "Yunusobod, 4-kvartal", district: "yunusobod", lat: 41.3646, lng: 69.2877, status: "available", access: "staff", public: true },
-  { id: "W0016189", name: "University Campus — Mirzo Ulug'bek", address: "Mirzo Ulug'bek tumani", district: "mirzoUlugbek", lat: 41.3392, lng: 69.3345, status: "available", access: "public", public: true },
-  { id: "W0016190", name: "Business Center — Chilonzor", address: "Chilonzor, 9-kvartal", district: "chilonzor", lat: 41.2754, lng: 69.2047, status: "low", access: "staff", public: true },
-  { id: "W0016191", name: "Medical Clinic — Shayxontohur", address: "Shayxontohur tumani", district: "shayxontohur", lat: 41.3265, lng: 69.2362, status: "available", access: "public", public: true },
-  { id: "W0016192", name: "IT Park — Mirobod", address: "Mirobod tumani", district: "mirobod", lat: 41.2995, lng: 69.2793, status: "available", access: "staff", public: true },
-  { id: "W0016193", name: "Trade Hub — Yakkasaroy", address: "Yakkasaroy tumani", district: "yakkasaroy", lat: 41.2891, lng: 69.2542, status: "offline", access: "staff", public: true },
-  { id: "W0016194", name: "Tech Office — Olmazor", address: "Olmazor tumani", district: "olmazor", lat: 41.3548, lng: 69.2431, status: "available", access: "staff", public: true },
-  { id: "W0016195", name: "Factory Office — Sergeli", address: "Sergeli tumani", district: "sergeli", lat: 41.2271, lng: 69.2195, status: "low", access: "staff", public: true },
-  { id: "W0016196", name: "Co-working — Yunusobod", address: "Yunusobod, 11-kvartal", district: "yunusobod", lat: 41.3723, lng: 69.2956, status: "available", access: "public", public: true },
-  { id: "W0016197", name: "Private Office (hidden)", address: "Toshkent", district: "mirobod", lat: 41.3, lng: 69.27, status: "available", access: "staff", public: false },
+/**
+ * The 25 real working fridges (admin panel, 25 Nov 2026). Keys are the IDs printed on the QR codes.
+ * TODO: the admin has no addresses or coordinates yet. Add `address`, `lat` and `lng` per fridge
+ * when they are available: fridges without lat/lng are listed but not shown on the map.
+ * Client names are NOT public: they only show when config.showClientNames is true.
+ */
+const RAW: [id: string, name: string, type: FridgeType][] = [
+  ["W0016188", "MKB Amaliyot", "bank"],
+  ["W0019541", "Mobiuz 1", "telecom"],
+  ["W0016187", "MKB Back office", "bank"],
+  ["W0016186", "Knauf", "office"],
+  ["W0016189", "MAAB", "university"],
+  ["W0019553", "KPMG 8/Infinity", "office"],
+  ["W0009013", "Mobiuz 2", "telecom"],
+  ["W0008765", "Ucell Plaza", "telecom"],
+  ["W0019547", "KPMG 9/Infinity", "office"],
+  ["W0008444", "IT Park Ventures", "it_park"],
+  ["W0008764", "Ucell Vaxidova 2", "telecom"],
+  ["W0019557", "IT Park 6", "it_park"],
+  ["W0019552", "AVO TECH", "office"],
+  ["W0008766", "Ucell Dim Tower 4", "telecom"],
+  ["W0016192", "Kapital Yashnaobod", "bank"],
+  ["W0009016", "Ucell Vaxidova", "telecom"],
+  ["W0009015", "Adliya vazirligi", "government"],
+  ["W0019554", "7TECH/Qoratosh", "office"],
+  ["W0019542", "ITPU", "university"],
+  ["W0009014", "Ucell Dim Tower 3", "telecom"],
+  ["W0008767", "Mobiuz Labzak", "telecom"],
+  ["W0019543", "Sud Med Ekspertiza", "government"],
+  ["W0019551", "UDEVS Anor Plaza", "office"],
+  ["W0019559", "Veterinariya qo'mitasi", "government"],
+  ["W0019560", "AVIS", "office"],
 ];
 
-/** Small deterministic PRNG so the same fridge always shows the same stock. */
+const counts = new Map<FridgeType, number>();
+export const FRIDGES: Fridge[] = RAW.map(([id, name, type]) => {
+  const typeIndex = (counts.get(type) ?? 0) + 1;
+  counts.set(type, typeIndex);
+  // All 25 are staff/students only. Status comes from the admin panel (all working).
+  return { id, name, type, typeIndex, status: "available", access: "staff", public: true };
+});
+
+/** Order in which types are listed. */
+export const FRIDGE_TYPES: FridgeType[] = ["bank", "telecom", "university", "it_park", "government", "office"];
+
+/** Small deterministic PRNG so the same fridge always shows the same (mock) stock. */
 function seeded(seed: string) {
   let h = 2166136261;
   for (const c of seed) h = Math.imul(h ^ c.charCodeAt(0), 16777619);
@@ -26,29 +57,29 @@ function seeded(seed: string) {
   };
 }
 
-const DISTRICTS: District[] = ["yunusobod", "mirzoUlugbek", "chilonzor", "shayxontohur", "mirobod", "yakkasaroy", "olmazor", "sergeli"];
 const STATUSES: FridgeStatus[] = ["available", "available", "available", "low"];
 
-/** Known fridges come from the list; any other W+7 digit id gets a generated mock fridge. */
+/**
+ * A real key returns that fridge. Any other W+7-digit key returns a generated mock fridge in
+ * development only; in production unknown keys return null ("Muzlatgich topilmadi").
+ */
 export function findFridge(id: string): Fridge | null {
   const known = FRIDGES.find((f) => f.id.toLowerCase() === id.toLowerCase());
   if (known) return known;
-  if (!/^W\d{7}$/i.test(id)) return null;
+  if (process.env.NODE_ENV !== "development" || !/^W\d{7}$/i.test(id)) return null;
   const rnd = seeded(id.toUpperCase());
-  const district = DISTRICTS[Math.floor(rnd() * DISTRICTS.length)];
   return {
     id: id.toUpperCase(),
     name: `Hello ${id.toUpperCase()}`,
-    address: "Toshkent",
-    district,
-    lat: 41.3 + (rnd() - 0.5) * 0.12,
-    lng: 69.26 + (rnd() - 0.5) * 0.15,
+    type: "office",
+    typeIndex: 0,
     status: STATUSES[Math.floor(rnd() * STATUSES.length)],
     access: "staff",
     public: false,
   };
 }
 
+/** TODO: real stock comes from the backend; this is deterministic mock data. */
 export function stockFor(fridge: Fridge): StockItem[] {
   const rnd = seeded(fridge.id);
   const low = fridge.status === "low";
@@ -59,7 +90,13 @@ export function stockFor(fridge: Fridge): StockItem[] {
   });
 }
 
-export function distanceKm(a: { lat: number; lng: number }, b: { lat: number; lng: number }) {
+export function hasCoords(f: Fridge): f is Fridge & { lat: number; lng: number } {
+  return typeof f.lat === "number" && typeof f.lng === "number";
+}
+
+/** Distance in km, or null when either fridge has no coordinates yet. */
+export function distanceKm(a: Fridge, b: Fridge): number | null {
+  if (!hasCoords(a) || !hasCoords(b)) return null;
   const R = 6371;
   const dLat = ((b.lat - a.lat) * Math.PI) / 180;
   const dLng = ((b.lng - a.lng) * Math.PI) / 180;

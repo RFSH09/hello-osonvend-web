@@ -9,12 +9,14 @@ export const config = {
    * Keep false until each client has given written permission. Only fridge-hallway shows when false.
    */
   showClientPhotos: false,
-  /** Public numbers shown on the home page. */
-  stats: { fridges: 25, orders: 166000, sinceYear: 2024 },
+  /** Open item: client names are not public yet. When false, fridges show a generic label by type. */
+  showClientNames: false,
+  /** Public numbers shown on the home page (no revenue on the public site). */
+  stats: { fridges: 25, orders: 170000, since: 2024 },
   /** Loyalty: "every Nth purchase is discounted". Flip `enabled` to hide the whole section. */
   loyalty: { enabled: true, every: 10, discountPercent: 10 },
-  /** /public/brands/payme.svg + click.svg are neutral PLACEHOLDER wordmarks: replace with the official logo files. */
-  brandLogos: { payme: true, click: true },
+  /** Keep false (neutral text badges) until the OFFICIAL logo files replace the placeholders in /public/brands/. */
+  brandLogos: { payme: false, click: false },
   contact: {
     phone: "+998 94 403 16 11",
     phoneHref: "tel:+998944031611",

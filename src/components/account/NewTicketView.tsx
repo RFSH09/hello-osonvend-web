@@ -10,6 +10,7 @@ import { useRouter } from "@/i18n/navigation";
 import * as api from "@/lib/account/api";
 import type { TicketReason } from "@/lib/account/types";
 import { formatPrice, formatTashkentTime } from "@/lib/format";
+import { useFridgeLabel } from "@/lib/fridge-label";
 import { useAsync } from "./hooks";
 import { ErrorState, ListSkeleton, PageHeader } from "./states";
 
@@ -22,6 +23,7 @@ export function NewTicketView({ purchaseId }: { purchaseId?: string }) {
   const locale = useLocale();
   const router = useRouter();
   const toast = useToast();
+  const { byId } = useFridgeLabel();
   const res = useAsync(() => api.listPurchases());
   const [order, setOrder] = useState(purchaseId ?? "");
   const [reason, setReason] = useState<TicketReason>("wrongItem");
@@ -32,8 +34,9 @@ export function NewTicketView({ purchaseId }: { purchaseId?: string }) {
   const [done, setDone] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!photo) return setPreview(null);
+    if (!photo) return;
     const url = URL.createObjectURL(photo);
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- object URL is a browser resource tied to this effect
     setPreview(url);
     return () => URL.revokeObjectURL(url);
   }, [photo]);
@@ -73,7 +76,7 @@ export function NewTicketView({ purchaseId }: { purchaseId?: string }) {
               <select value={order} onChange={(e) => setOrder(e.target.value)} className={field}>
                 <option value="">{t("noPurchase")}</option>
                 {res.data.filter((p) => p.status !== "processing").slice(0, 15).map((p) => (
-                  <option key={p.id} value={p.id}>{formatTashkentTime(p.createdAt, locale)} · {p.fridgeName} · {formatPrice(p.total, tc("unit"))}</option>
+                  <option key={p.id} value={p.id}>{formatTashkentTime(p.createdAt, locale)} · {byId(p.fridgeId, p.fridgeName)} · {formatPrice(p.total, tc("unit"))}</option>
                 ))}
               </select>
             </label>
@@ -92,7 +95,7 @@ export function NewTicketView({ purchaseId }: { purchaseId?: string }) {
             <div className="flex flex-col gap-2">
               <span className="font-medium">{t("photo")}</span>
               <label className="flex min-h-24 cursor-pointer flex-col items-center justify-center gap-1 rounded-2xl border-2 border-dashed border-border p-4 text-center text-muted hover:border-accent">
-                {preview ? (
+                {photo && preview ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={preview} alt="" className="max-h-40 rounded-xl" />
                 ) : (

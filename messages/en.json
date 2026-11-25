@@ -329,7 +329,10 @@
     "view": "View",
     "mapTab": "Map",
     "listTab": "List",
-    "open": "Open fridge"
+    "open": "Open fridge",
+    "type": "Type",
+    "allTypes": "All types",
+    "addressesSoon": "Exact addresses coming soon"
   },
   "howPage": {
     "title": "How it works",
@@ -647,5 +650,17 @@
       "title": "Hello in real life",
       "subtitle": "Real fridges in Tashkent."
     }
+  },
+  "fridgeTypes": {
+    "bank": "Bank office",
+    "telecom": "Telecom office",
+    "university": "University",
+    "it_park": "IT Park",
+    "government": "Government office",
+    "office": "Business center"
+  },
+  "empty": {
+    "title": "Nothing here yet",
+    "text": "Data will show up here."
   }
 }

@@ -7,6 +7,7 @@ import { Button, Card, EmptyState } from "@/components/ui/primitives";
 import * as api from "@/lib/account/api";
 import { PRODUCT_BY_ID } from "@/lib/data/products";
 import { tashkentDayKey, tashkentMonthKey } from "@/lib/format";
+import { useFridgeLabel } from "@/lib/fridge-label";
 import { useAsync } from "./hooks";
 import { PurchaseRow } from "./PurchaseBits";
 import { ErrorState, ListSkeleton, PageHeader } from "./states";
@@ -18,6 +19,7 @@ export function PurchasesView() {
   const locale = useLocale();
   const months = useTranslations()
     .raw("months") as string[];
+  const { byId } = useFridgeLabel();
   const res = useAsync(() => api.listPurchases());
   const [q, setQ] = useState("");
   const [fridge, setFridge] = useState("");
@@ -25,7 +27,8 @@ export function PurchasesView() {
   const [to, setTo] = useState("");
 
   const fridges = useMemo(
-    () => (res.status === "ok" ? Array.from(new Map(res.data.map((p) => [p.fridgeId, p.fridgeName])).entries()) : []),
+    () => (res.status === "ok" ? Array.from(new Map(res.data.map((p) => [p.fridgeId, byId(p.fridgeId, p.fridgeName)])).entries()) : []),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [res],
   );
 
@@ -38,7 +41,7 @@ export function PurchasesView() {
       if (from && day < from) return false;
       if (to && day > to) return false;
       if (needle) {
-        const hay = [p.fridgeName, p.id, ...p.items.map((i) => PRODUCT_BY_ID.get(i.productId)?.name ?? "")].join(" ").toLowerCase();
+        const hay = [byId(p.fridgeId, p.fridgeName), p.id, ...p.items.map((i) => PRODUCT_BY_ID.get(i.productId)?.name ?? "")].join(" ").toLowerCase();
         if (!hay.includes(needle)) return false;
       }
       return true;
@@ -49,6 +52,7 @@ export function PurchasesView() {
       map.set(k, [...(map.get(k) ?? []), p]);
     }
     return Array.from(map.entries());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [res, q, fridge, from, to]);
 
   const filtered = !!(q || fridge || from || to);

@@ -329,7 +329,10 @@
     "view": "Ko'rinish",
     "mapTab": "Xarita",
     "listTab": "Ro'yxat",
-    "open": "Muzlatgichni ochish"
+    "open": "Muzlatgichni ochish",
+    "type": "Turi",
+    "allTypes": "Barcha turlar",
+    "addressesSoon": "Aniq manzillar tez orada qo'shiladi"
   },
   "howPage": {
     "title": "Qanday ishlaydi",
@@ -647,5 +650,17 @@
       "title": "Hello hayotda",
       "subtitle": "Toshkentdagi haqiqiy muzlatgichlar."
     }
+  },
+  "fridgeTypes": {
+    "bank": "Bank ofisi",
+    "telecom": "Telekom ofisi",
+    "university": "Universitet",
+    "it_park": "IT Park",
+    "government": "Davlat idorasi",
+    "office": "Biznes markaz"
+  },
+  "empty": {
+    "title": "Hozircha hech narsa yo'q",
+    "text": "Bu yerda ma'lumotlar paydo bo'ladi."
   }
 }

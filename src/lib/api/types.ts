@@ -22,23 +22,20 @@ export type Product = {
 };
 
 export type FridgeStatus = "available" | "low" | "offline";
-export type District =
-  | "yunusobod"
-  | "mirzoUlugbek"
-  | "chilonzor"
-  | "shayxontohur"
-  | "mirobod"
-  | "yakkasaroy"
-  | "olmazor"
-  | "sergeli";
+export type FridgeType = "bank" | "telecom" | "university" | "it_park" | "government" | "office";
 
 export type Fridge = {
+  /** The real key printed on the QR code, e.g. W0016188. */
   id: string;
+  /** Real client name. Public only when config.showClientNames is true. */
   name: string;
-  address: string;
-  district: District;
-  lat: number;
-  lng: number;
+  type: FridgeType;
+  /** 1-based position among fridges of the same type (used for "Bank ofisi 2"). */
+  typeIndex: number;
+  /** TODO: the admin panel has no addresses/coordinates yet; fill these in when available. */
+  address?: string;
+  lat?: number;
+  lng?: number;
   status: FridgeStatus;
   access: "public" | "staff";
   public: boolean;

@@ -10,6 +10,7 @@ import { Link } from "@/i18n/navigation";
 import * as api from "@/lib/account/api";
 import { PRODUCT_BY_ID } from "@/lib/data/products";
 import { formatPrice, formatTashkentTime } from "@/lib/format";
+import { useFridgeLabel } from "@/lib/fridge-label";
 import { useAsync } from "./hooks";
 import { PurchaseStatus } from "./PurchaseBits";
 import { ErrorState, ListSkeleton } from "./states";
@@ -18,6 +19,7 @@ export function PurchaseDetail({ id }: { id: string }) {
   const t = useTranslations();
   const locale = useLocale();
   const unit = t("common.unit");
+  const { byId } = useFridgeLabel();
   const res = useAsync(() => api.getPurchase(id), [id]);
 
   return (
@@ -39,7 +41,7 @@ export function PurchaseDetail({ id }: { id: string }) {
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <h1 className="font-display text-2xl font-extrabold">{t("receipt.title")} · {p.id}</h1>
-                  <p className="text-muted">{p.fridgeName}</p>
+                  <p className="text-muted">{byId(p.fridgeId, p.fridgeName)}</p>
                 </div>
                 <PurchaseStatus status={p.status} />
               </div>
@@ -73,7 +75,7 @@ export function PurchaseDetail({ id }: { id: string }) {
                 <dt className="text-muted">{t("account.purchase.card")}</dt>
                 <dd className="text-right font-semibold capitalize">{p.method}{p.cardLast4 ? ` •••• ${p.cardLast4}` : ""}</dd>
                 <dt className="text-muted">{t("account.purchase.fridge")}</dt>
-                <dd className="text-right font-semibold">{p.fridgeName}</dd>
+                <dd className="text-right font-semibold">{byId(p.fridgeId, p.fridgeName)}</dd>
                 <dt className="text-muted">{t("receipt.time")}</dt>
                 <dd className="text-right font-semibold">{formatTashkentTime(p.createdAt, locale)}</dd>
               </dl>
